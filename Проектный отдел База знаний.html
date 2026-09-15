@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Проектный отдел</title>
+<style>
+:root{--bg:#f4f6f9;--card:#fff;--text:#17202a;--muted:#6b7280;--line:#e7ebf0;--accent:#2563eb;--accent2:#1d4ed8;--shadow:0 12px 35px rgba(20,35,55,.08)}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--text)}
+header{background:linear-gradient(135deg,#111827,#263449);color:white;padding:28px 5vw 34px}
+.top{max-width:1280px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;gap:14px;align-items:center}
+.logo{width:46px;height:46px;border-radius:13px;background:#fff;color:#1d4ed8;display:grid;place-items:center;font-weight:800;font-size:20px}
+h1{font-size:25px;margin:0 0 3px}
+.sub{color:#cbd5e1;font-size:14px}
+.hero{max-width:1280px;margin:26px auto 0}
+.hero h2{font-size:34px;margin:0 0 9px}
+.hero p{margin:0;color:#cbd5e1}
+main{max-width:1280px;margin:0 auto;padding:28px 5vw 60px}
+.search{background:var(--card);padding:16px;border-radius:16px;box-shadow:var(--shadow);display:flex;gap:10px}
+.search input{flex:1;border:1px solid var(--line);padding:13px 14px;border-radius:10px;font-size:15px;outline:none}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:21px;box-shadow:0 6px 24px rgba(20,35,55,.04);transition:.18s;cursor:pointer}
+.card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.icon{font-size:28px}
+.card h3{margin:11px 0 6px}
+.muted{color:var(--muted);font-size:14px}
+.section{margin-top:34px}
+.section-title{display:flex;align-items:end;justify-content:space-between;margin-bottom:13px}
+.section-title h2{margin:0;font-size:21px}
+.table-list{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.table-card{display:flex;align-items:center;justify-content:space-between;gap:15px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:17px}
+.table-card a{background:var(--accent);color:#fff;padding:9px 13px;border-radius:9px;text-decoration:none;font-weight:700;white-space:nowrap}
+.empty{padding:30px;text-align:center;color:var(--muted);background:#fff;border:1px dashed #cfd6df;border-radius:14px}
+
+/* модалки */
+.modal{position:fixed;inset:0;background:rgba(15,23,42,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:50}
+.modal.show{display:flex}
+.modal-box{width:min(760px,100%);background:#fff;border-radius:18px;padding:24px;max-height:85vh;display:flex;flex-direction:column;overflow:hidden}
+.modal-box h2{margin:0 0 4px}
+.modal-box .modal-sub{color:var(--muted);font-size:14px;margin-bottom:14px}
+.modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:14px;flex-shrink:0}
+.primary{background:var(--accent);color:#fff}
+.secondary{background:#eef2f7;color:#17202a}
+
+/* поиск внутри модалки */
+.modal-search{display:flex;gap:8px;margin-bottom:14px;flex-shrink:0}
+.modal-search input{flex:1;border:1px solid var(--line);padding:10px 12px;border-radius:10px;font-size:14px;outline:none;margin:0}
+
+/* список файлов — со скроллом */
+.file-list{
+  flex:1 1 auto;
+  overflow-y:auto;
+  overflow-x:hidden;
+  padding-right:6px;
+  margin-right:-6px;
+  -webkit-overflow-scrolling:touch;
+  min-height:0;
+  max-height:100%;
+}
+.file-list::-webkit-scrollbar{width:10px}
+.file-list::-webkit-scrollbar-track{background:#f1f5f9;border-radius:8px}
+.file-list::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:8px}
+.file-list::-webkit-scrollbar-thumb:hover{background:#94a3b8}
+
+.file-item{display:flex;align-items:center;gap:14px;padding:14px;border:1px solid var(--line);border-radius:12px;margin-bottom:10px;cursor:pointer;transition:.15s;background:#fff}
+.file-item:hover{border-color:var(--accent);background:#f8faff;transform:translateX(2px)}
+.file-item .fi-icon{width:42px;height:42px;border-radius:10px;background:#eef2ff;display:grid;place-items:center;font-size:20px;flex-shrink:0}
+.file-item .fi-main{flex:1;min-width:0}
+.file-item .fi-name{font-weight:700;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.file-item .fi-desc{color:var(--muted);font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.file-item .fi-size{color:var(--muted);font-size:12px;white-space:nowrap;flex-shrink:0}
+.file-item .fi-dl{background:var(--accent);color:#fff;padding:8px 12px;border-radius:8px;font-weight:700;font-size:13px;white-space:nowrap;flex-shrink:0}
+
+.status{font-size:12px;color:#cbd5e1;margin-top:10px}
+.toast{position:fixed;right:22px;bottom:22px;background:#111827;color:white;padding:13px 16px;border-radius:11px;display:none;z-index:60;max-width:340px}
+.toast b{display:block;margin-bottom:4px}
+
+.errbox{max-width:1280px;margin:20px auto;padding:16px 20px;background:#fee2e2;border:1px solid #fecaca;color:#7f1d1d;border-radius:12px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;white-space:pre-wrap}
+
+@media(max-width:800px){
+  .grid,.table-list{grid-template-columns:1fr}
+  .top{align-items:flex-start;flex-direction:column}
+  .hero h2{font-size:27px}
+  .file-item .fi-size{display:none}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <div class="brand">
+      <div class="logo">П</div>
+      <div>
+        <h1 id="companyName">Проектный отдел</h1>
+        <div class="sub" id="subtitle">ТЗ • ПО • онлайн-таблицы</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero">
+    <h2>Все нужные материалы — в одном месте</h2>
+    <p>Кликните категорию — откроется список файлов. Или найдите нужное через поиск.</p>
+    <div class="status" id="status"></div>
+  </div>
+</header>
+<main>
+  <div id="errbox"></div>
+
+  <div class="search">
+    <input id="search" placeholder="Поиск по ТЗ, ПО и таблицам…">
+    <button class="btn primary" id="btnClear">Очистить</button>
+  </div>
+
+  <!-- РЕЗУЛЬТАТЫ ПОИСКА -->
+  <section class="section" id="searchSection" style="display:none">
+    <div class="section-title">
+      <h2>Результаты поиска</h2>
+      <span class="muted" id="searchCount"></span>
+    </div>
+    <div class="file-list" id="searchFiles" style="max-height:none"></div>
+    <div class="table-list" id="searchTables" style="margin-top:12px"></div>
+  </section>
+
+  <!-- ОБЫЧНЫЙ ВИД -->
+  <div id="normalView">
+    <div class="grid" id="categories"></div>
+
+    <section class="section">
+      <div class="section-title">
+        <h2>Онлайн-таблицы</h2>
+        <span class="muted">Открываются в браузере</span>
+      </div>
+      <div class="table-list" id="tables"></div>
+    </section>
+  </div>
+</main>
+
+<!-- МОДАЛКА: список файлов категории -->
+<div class="modal" id="filesModal">
+  <div class="modal-box">
+    <h2 id="fmTitle">Файлы</h2>
+    <div class="modal-sub" id="fmSub"></div>
+    <div class="modal-search">
+      <input id="fmSearch" placeholder="Быстрый поиск по названию…">
+    </div>
+    <div class="file-list" id="fmList"></div>
+    <div class="modal-actions">
+      <button class="btn secondary" id="fmClose">Закрыть</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   ДАННЫЕ САЙТА
+   ============================================================ */
+
+const FILES = [
+  /* -------- ТЕХНИЧЕСКИЕ ЗАДАНИЯ -------- */
+  {
+    name: "ТЗ на МА.pdf",
+    category: "tz",
+    url: "https://disk.360.yandex.ru/i/p4y9jy5zSxp6OQ?download=1",
+    updated: "15.09.2026"
+  },
+  {
+    name: "ТЗ на монтаж панелей 43 в СМ Лента.pdf",
+    category: "tz",
+    url: "https://disk.360.yandex.ru/i/ekQb9yEdSscQJg?download=1",
+    updated: "15.09.2026"
+  },
+  {
+    name: "ТЗ на монтаж панелей 50 в ГМ Лента V2.pdf",
+    category: "tz",
+    url: "https://disk.360.yandex.ru/i/GRgiRi1O-mQdYQ?download=1",
+    updated: "15.09.2026"
+  },
+  {
+    name: "ТЗ по ФО для Магнита.pdf",
+    category: "tz",
+    url: "https://disk.360.yandex.ru/i/ALz1ysyTxkiPKw?download=1",
+    updated: "15.09.2026"
+  },
+  {
+    name: "ТЗ по монтажу ФЭ(V6).pdf",
+    category: "tz",
+    url: "https://disk.360.yandex.ru/i/lgZkruPjxKBC8A?download=1",
+    updated: "15.09.2026"
+  },
+  {
+    name: "ТЗ по монтажу Фасоль.pdf",
+    category: "tz",
+    url: "https://disk.360.yandex.ru/i/NQ_Uv7MVijUkBQ?download=1",
+    updated: "15.09.2026"
+  },
+  {
+    name: "Инструкция по монтажу ШБ в ММ(V5).pdf",
+    category: "tz",
+    url: "https://disk.360.yandex.ru/i/mpYa5BP0b1M3DA?download=1",
+    updated: "15.09.2026"
+  },
+  {
+    name: "ТЗ ДП_ПЧ в ТКШ V13.pdf",
+    category: "tz",
+    url: "https://disk.360.yandex.ru/i/G7TH_CLtwZHs_w?download=1",
+    updated: "15.09.2026"
+  },
+  {
+    name: "ТЗ ДП_ПЧ в ЩМ V4.pdf",
+    category: "tz",
+    url: "https://disk.360.yandex.ru/i/BTcmRsMd6hPGqw?download=1",
+    updated: "15.09.2026"
+  },
+  {
+    name: "ТЗ монтаж панелей 32 ГМ Метро V2.pdf",
+    category: "tz",
+    url: "https://disk.360.yandex.ru/i/6PYHcPPR5u4dXw?download=1",
+    updated: "15.09.2026"
+  },
+
+  /* -------- ПО -------- */
+  {
+    name: "Cubic для МП х32",
+    category: "software",
+    url: "https://disk.360.yandex.ru/d/s-5bdx0gknqahA?download=1",
+    size: "31 МБ",
+    updated: "15.09.2026"
+  },
+  {
+    name: "Cubic для МП х64",
+    category: "software",
+    url: "https://disk.360.yandex.ru/d/vcTSw1BPkrhUEg?download=1",
+    size: "31 МБ",
+    updated: "15.09.2026"
+  },
+  {
+    name: "Cubic Cubic 7.7.0 для ДП_ПЧ_ТВ LMC",
+    category: "software",
+    url: "https://disk.360.yandex.ru/d/H4zLLrOEAP1-qA?download=1",
+    size: "32 МБ",
+    updated: "15.09.2026"
+  },
+  {
+    name: "Cubic 7.7.0 apax для ДП в МА",
+    category: "software",
+    url: "https://disk.360.yandex.ru/d/4Yjx0rLtAABLiw?download=1",
+    size: "32 МБ",
+    updated: "15.09.2026"
+  },
+  {
+    name: "Cubic 7.7.0 для ДП_ПЧ_ТВ",
+    category: "software",
+    url: "https://disk.360.yandex.ru/d/3qiFnXPSjJQmLQ?download=1",
+    size: "32 МБ",
+    updated: "15.09.2026"
+  }
+];
+
+const TABLES = [
+  {
+    name: "ММ/МК ДП_ПЧ",
+    description: "Таблица по проекту ДП_ПЧ",
+    url: "https://docs.google.com/spreadsheets/d/1a65W34zXXFRnvY-7cKw5wO7SIzNmUzMNn_VPjGmQLMw/edit?usp=sharing"
+  },
+  {
+    name: "Метро",
+    description: "Таблица по проекту Метро",
+    url: "https://docs.google.com/spreadsheets/d/1iTWzQutDr0e_dgOKW0oG1s4OeaRpyAOxlJjbIJVxJdk/edit?usp=sharing"
+  },
+  {
+    name: "Лента",
+    description: "Таблица по проекту Лента",
+    url: "https://docs.google.com/spreadsheets/d/15gWmk-dnApiRLLa9PtlSQiAVXcW8DAty5J55tNeURLI/edit?usp=sharing"
+  },
+  {
+    name: "Фасадные экраны",
+    description: "Таблица по проекту ФЭ",
+    url: "https://docs.google.com/spreadsheets/d/1HbW8P58z3qjeSLXYUw-q7HE9GPPHqlKdwl6QhxxLrLs/edit?usp=sharing"
+  },
+  {
+    name: "Шелфбаннеры",
+    description: "Таблица по проекту ШБ",
+    url: "https://docs.google.com/spreadsheets/d/16wHsiEwpaVCRsgyihnwRXZd-3JJNP1BLOLKgXxTP7Rc/edit?usp=sharing"
+  },
+  {
+    name: "Фасоль",
+    description: "Таблица по проекту Фасоль",
+    url: "https://docs.google.com/spreadsheets/d/105JtLBxogpZ55tRVY_mwCBAdvUuBzELnLG99jHhTI_E/edit?usp=sharing"
+  },
+  {
+    name: "Магнит аптеки",
+    description: "Таблица по проекту МА",
+    url: "https://docs.google.com/spreadsheets/d/1NDfuWojZliMcWJAoezmx8W7DiBHzLR_gTiH-XxH4EAQ/edit?usp=sharing"
+  },
+  {
+    name: "Таблица Подрядчики",
+    description: "Таблица по подрядчикам",
+    url: "https://docs.google.com/spreadsheets/d/18PZsnwJIdLvULAQOaSBdOQ4mSenNvOr5f2YrQ22aJy0/edit?usp=sharing"
+  },
+  {
+    name: "Карточки проектов",
+    description: "Таблица с карточками проектов",
+    url: "https://docs.google.com/spreadsheets/d/1CWIuah_ERjv4H_jq6yN1H3ur5OXaCKc2zJ95b3g3--0/edit?usp=sharing"
+  },
+  {
+    name: "Календарь",
+    description: "Календарь выходов",
+    url: "https://docs.google.com/spreadsheets/d/1okivQWieQDGZ0qPALgHFksF-mara8FVB59IKZYuPspE/edit?usp=sharing"
+  },
+  {
+    name: "Поиск подрядчиков",
+    description: "Таблица по поиску подрядчиков",
+    url: "https://docs.google.com/spreadsheets/d/1MQJAk2Rcuxy8iaXNDtM9JWvFTXznDumnVbOzZO2iEdY/edit?usp=sharing"
+  },
+  {
+    name: "Калькулятор ТО",
+    description: "Таблица с калькулятором ТО",
+    url: "https://docs.google.com/spreadsheets/d/1dhQkqFEo8TSfkqjed2B0ig6ejrd-hEKJvrU2Y0dWmr8/edit?gid=483175244#gid=483175244"
+  },
+  {
+    name: "Сервисное обслуживание",
+    description: "Таблица по проекту ТО+ЕММ",
+    url: "https://docs.google.com/spreadsheets/d/1QdjCuRj_qUbF5IOWDdqgbS5yGnb4byI8KEtMTPsabYA/edit?usp=sharing"
+  },
+  {
+    name: "ЕММ",
+    description: "Таблица по проекту ЕММ (список)",
+    url: "https://docs.google.com/spreadsheets/d/1SLLDFAm20Fmg0O4HGklP6kvK4FWdfd3_lFK95dZkxFA/edit?usp=sharing"
+  }
+];
+
+/* ============================================================
+   НИЖЕ НИЧЕГО МЕНЯТЬ НЕ НУЖНО
+   ============================================================ */
+
+const CATEGORIES = [
+  {id:"tz",       title:"Технические задания", icon:"📋"},
+  {id:"software", title:"ПО и драйверы",       icon:"💿"}
+];
+
+/* ---------- утилиты ---------- */
+function esc(s){
+  return String(s == null ? "" : s).replace(/[&<>"']/g, m => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[m]));
+}
+
+function plural(n, forms){
+  const a = Math.abs(n) % 100;
+  const b = a % 10;
+  if (a > 10 && a < 20) return forms[2];
+  if (b > 1 && b < 5)   return forms[1];
+  if (b === 1)          return forms[0];
+  return forms[2];
+}
+
+function fileIcon(name){
+  const n = String(name || "").toLowerCase();
+  if (n.endsWith(".pdf")) return "📕";
+  if (n.endsWith(".zip") || n.endsWith(".rar") || n.endsWith(".7z")) return "🗜️";
+  if (n.endsWith(".exe") || n.endsWith(".msi")) return "⚙️";
+  if (n.endsWith(".bin") || n.endsWith(".fw"))  return "💾";
+  if (n.endsWith(".doc") || n.endsWith(".docx"))return "📘";
+  if (n.endsWith(".xls") || n.endsWith(".xlsx"))return "📊";
+  if (n.endsWith(".png") || n.endsWith(".jpg") || n.endsWith(".jpeg")) return "🖼️";
+  return "📄";
+}
+
+/* ---------- кэш ссылок на DOM ---------- */
+const $ = id => document.getElementById(id);
+const els = {
+  categories: $("categories"),
+  tables:     $("tables"),
+  status:     $("status"),
+  search:     $("search"),
+  fmTitle:    $("fmTitle"),
+  fmSub:      $("fmSub"),
+  fmSearch:   $("fmSearch"),
+  fmList:     $("fmList"),
+  filesModal: $("filesModal"),
+  toast:      $("toast"),
+  errbox:     $("errbox")
+};
+
+/* ---------- карточки ---------- */
+function buildTableCard(t){
+  const div = document.createElement("div");
+  div.className = "table-card";
+  div.innerHTML =
+    '<div><b>' + esc(t.name) + '</b>' +
+    '<div class="muted">' + esc(t.description || "") + '</div></div>' +
+    '<a href="' + esc(t.url) + '" target="_blank" rel="noopener">Открыть</a>';
+  return div;
+}
+
+function buildFileItem(f){
+  const item = document.createElement("div");
+  item.className = "file-item";
+  item.setAttribute("data-url", f.url || "");
+  item.setAttribute("data-name", f.name || "");
+  item.innerHTML =
+    '<div class="fi-icon">' + esc(fileIcon(f.name)) + '</div>' +
+    '<div class="fi-main">' +
+      '<div class="fi-name">' + esc(f.name) + '</div>' +
+      '<div class="fi-desc">' + esc(f.description || "") + '</div>' +
+    '</div>' +
+    '<div class="fi-size">' + esc(f.size || "") +
+      (f.updated ? " • " + esc(f.updated) : "") + '</div>' +
+    '<div class="fi-dl">⬇ Скачать</div>';
+  return item;
+}
+
+/* ---------- рендер главной ---------- */
+function renderCategories(){
+  els.categories.innerHTML = "";
+  const frag = document.createDocumentFragment();
+  CATEGORIES.forEach(c => {
+    const count = FILES.filter(f => f.category === c.id).length;
+    const card = document.createElement("div");
+    card.className = "card";
+    card.setAttribute("data-cat", c.id);
+    card.innerHTML =
+      '<div class="icon">' + esc(c.icon) + '</div>' +
+      '<h3>' + esc(c.title) + '</h3>' +
+      '<div class="muted">' + count + ' ' + plural(count, ["материал","материала","материалов"]) + '</div>';
+    frag.appendChild(card);
+  });
+  els.categories.appendChild(frag);
+}
+
+function renderTables(){
+  els.tables.innerHTML = "";
+  if (!TABLES.length){
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent = "Нет таблиц";
+    els.tables.appendChild(empty);
+    return;
+  }
+  const frag = document.createDocumentFragment();
+  TABLES.forEach(t => frag.appendChild(buildTableCard(t)));
+  els.tables.appendChild(frag);
+}
+
+function renderStatus(){
+  els.status.textContent = "Файлов: " + FILES.length + " • таблиц: " + TABLES.length;
+}
+
+function render(){
+  renderCategories();
+  renderTables();
+  renderStatus();
+}
+
+/* ---------- поиск по всему ---------- */
+function renderSearchResults(){
+  const q = els.search.value.toLowerCase().trim();
+  const searchSection = document.getElementById("searchSection");
+  const normalView    = document.getElementById("normalView");
+  const searchFiles   = document.getElementById("searchFiles");
+  const searchTables  = document.getElementById("searchTables");
+  const searchCount   = document.getElementById("searchCount");
+
+  if (!q){
+    searchSection.style.display = "none";
+    normalView.style.display = "";
+    return;
+  }
+
+  searchSection.style.display = "";
+  normalView.style.display = "none";
+
+  const files = FILES.filter(f => {
+    const text = (
+      (f.name || "") + " " +
+      (f.description || "") + " " +
+      (f.size || "") + " " +
+      (f.updated || "")
+    ).toLowerCase();
+    return text.includes(q);
+  });
+
+  const tables = TABLES.filter(t => {
+    const text = ((t.name || "") + " " + (t.description || "")).toLowerCase();
+    return text.includes(q);
+  });
+
+  const total = files.length + tables.length;
+  searchCount.textContent = total
+    ? "Найдено: " + total + " (" + files.length + " файлов, " + tables.length + " таблиц)"
+    : "Ничего не найдено";
+
+  searchFiles.innerHTML = "";
+  searchTables.innerHTML = "";
+
+  if (files.length){
+    const frag = document.createDocumentFragment();
+    files.forEach(f => frag.appendChild(buildFileItem(f)));
+    searchFiles.appendChild(frag);
+  }
+
+  if (tables.length){
+    const frag = document.createDocumentFragment();
+    tables.forEach(t => frag.appendChild(buildTableCard(t)));
+    searchTables.appendChild(frag);
+  }
+
+  if (!files.length && !tables.length){
+    searchFiles.innerHTML = '<div class="empty">По запросу «' + esc(q) + '» ничего не найдено</div>';
+  }
+}
+
+/* ---------- модалка со списком файлов ---------- */
+let currentCategory = null;
+
+function openFilesModal(categoryId){
+  currentCategory = categoryId;
+  const cat = CATEGORIES.find(c => c.id === categoryId);
+  els.fmTitle.textContent = (cat ? cat.icon + " " + cat.title : "Файлы");
+  const total = FILES.filter(f => f.category === categoryId).length;
+  els.fmSub.textContent = "Всего файлов: " + total + " · клик по файлу — начать скачивание";
+  els.fmSearch.value = "";
+  renderFilesModal();
+  els.filesModal.classList.add("show");
+  setTimeout(() => els.fmSearch.focus(), 30);
+}
+
+function closeFilesModal(){
+  els.filesModal.classList.remove("show");
+  currentCategory = null;
+}
+
+function renderFilesModal(){
+  if (!currentCategory) return;
+  const q = els.fmSearch.value.toLowerCase().trim();
+  const list = FILES.filter(f =>
+    f.category === currentCategory &&
+    (!q || (f.name + " " + (f.description || "")).toLowerCase().includes(q))
+  );
+
+  els.fmList.innerHTML = "";
+  if (!list.length){
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent = "Ничего не найдено";
+    els.fmList.appendChild(empty);
+    return;
+  }
+
+  const frag = document.createDocumentFragment();
+  list.forEach(f => frag.appendChild(buildFileItem(f)));
+  els.fmList.appendChild(frag);
+}
+
+/* ---------- скачивание ---------- */
+function downloadFile(url, name){
+  if (!url){
+    toast("Ссылка на файл не указана");
+    return;
+  }
+  toast("Скачивание началось\n" + name);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.rel = "noopener";
+  a.target = "_blank";
+  try {
+    if (url.startsWith(location.origin) || url.startsWith("file:")) {
+      a.download = name;
+    }
+  } catch(e){ /* ignore */ }
+
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
+/* ---------- делегирование событий ---------- */
+document.addEventListener("click", e => {
+  const card = e.target.closest(".card[data-cat]");
+  if (card) { openFilesModal(card.getAttribute("data-cat")); return; }
+
+  const item = e.target.closest(".file-item");
+  if (item){
+    downloadFile(item.getAttribute("data-url"), item.getAttribute("data-name"));
+    return;
+  }
+
+  if (e.target.id === "fmClose")  { closeFilesModal(); return; }
+  if (e.target.id === "btnClear") { clearSearch(); return; }
+
+  if (e.target.classList && e.target.classList.contains("modal")) {
+    e.target.classList.remove("show");
+    if (e.target.id === "filesModal") currentCategory = null;
+  }
+});
+
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape"){
+    document.querySelectorAll(".modal.show").forEach(m => m.classList.remove("show"));
+    currentCategory = null;
+  }
+});
+
+els.search.addEventListener("input", renderSearchResults);
+els.fmSearch.addEventListener("input", renderFilesModal);
+
+/* ---------- служебные ---------- */
+function clearSearch(){
+  els.search.value = "";
+  renderSearchResults();
+}
+
+let toastTimer = null;
+function toast(s){
+  els.toast.innerHTML = String(s).split("\n").map((line, i) =>
+    i === 0 ? "<b>" + esc(line) + "</b>" : esc(line)
+  ).join("<br>");
+  els.toast.style.display = "block";
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { els.toast.style.display = "none"; }, 2600);
+}
+
+/* ---------- старт с защитой от ошибок ---------- */
+try {
+  render();
+} catch (err){
+  console.error(err);
+  if (els.errbox){
+    els.errbox.className = "errbox";
+    els.errbox.textContent =
+      "Ошибка в данных сайта:\n" + (err && err.message ? err.message : String(err)) +
+      "\n\nПроверьте массивы FILES и TABLES — чаще всего это пропущенная запятая между объектами.";
+  }
+}
+</script>
+</body></html>
