@@ -10,268 +10,228 @@
 :root{
  --bg:#06080d;--panel:rgba(17,22,31,.78);--panel2:#111722;--text:#f5f7fb;--muted:#8b96a8;
  --line:rgba(255,255,255,.085);--blue:#4d8dff;--violet:#8a62ff;--cyan:#42d8ff;--green:#3be3a4;
- --shadow:0 30px 90px rgba(0,0,0,.38)
+ --shadow:0 30px 90px rgba(0,0,0,.38);
+ --sidebar-w:268px;
 }
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden}
 body:before{content:"";position:fixed;inset:0;z-index:-5;background:
  radial-gradient(circle at 50% -15%,rgba(77,141,255,.19),transparent 33%),
  radial-gradient(circle at 100% 45%,rgba(138,98,255,.11),transparent 28%),
  linear-gradient(180deg,#070b12,#080c13 55%,#05070b)}
 body:after{content:"";position:fixed;inset:0;z-index:-4;opacity:.22;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(#000,transparent 90%)}
-.container{max-width:1440px;margin:auto;padding-left:5vw;padding-right:5vw}
-header{min-height:520px;position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
-.header-glow{position:absolute;left:50%;top:-220px;transform:translateX(-50%);width:800px;height:500px;border-radius:50%;background:rgba(54,117,255,.18);filter:blur(100px);animation:breath 8s ease-in-out infinite}
-@keyframes breath{50%{transform:translateX(-50%) scale(1.13);opacity:.7}}
-.nav{position:relative;padding-top:24px;display:flex;justify-content:space-between;align-items:center;gap:14px}
-.brand{display:flex;align-items:center;gap:13px}
-.logo{width:46px;height:46px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:linear-gradient(145deg,#4c8fff,#7759ef);display:grid;place-items:center;font-weight:800;box-shadow:0 10px 35px rgba(77,141,255,.3);position:relative;overflow:hidden}
-.logo i{position:absolute;width:100px;height:20px;background:rgba(255,255,255,.2);transform:rotate(-35deg) translateX(-80px);animation:scan 4s infinite}
+
+.app{display:flex;min-height:100vh}
+
+/* ---------- SIDEBAR ---------- */
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sidebar-w);display:flex;flex-direction:column;padding:22px 14px 20px;border-right:1px solid var(--line);background:linear-gradient(180deg,rgba(10,14,22,.95),rgba(8,12,18,.92));backdrop-filter:blur(18px);z-index:40;overflow-y:auto}
+.sidebar::-webkit-scrollbar{width:6px}
+.sidebar::-webkit-scrollbar-thumb{background:#2a364a;border-radius:8px}
+.side-brand{display:flex;align-items:center;gap:12px;padding:0 8px 18px;border-bottom:1px solid var(--line);margin-bottom:16px}
+.side-logo{width:42px;height:42px;border:1px solid rgba(255,255,255,.14);border-radius:13px;background:linear-gradient(145deg,#4c8fff,#7759ef);display:grid;place-items:center;font-weight:800;font-size:19px;position:relative;overflow:hidden;box-shadow:0 8px 26px rgba(77,141,255,.28)}
+.side-logo i{position:absolute;width:100px;height:20px;background:rgba(255,255,255,.2);transform:rotate(-35deg) translateX(-80px);animation:scan 4s infinite}
 @keyframes scan{50%,100%{transform:rotate(-35deg) translateX(120px)}}
-.brand-title{font-weight:800;font-size:15px}.brand-sub{font-size:11px;color:#7f8da2;margin-top:3px}
-.nav-right{display:flex;gap:8px;align-items:center}
-.live{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:rgba(255,255,255,.035);padding:9px 12px;border-radius:999px;color:#aab6c8;font-size:11px}
-.live span{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 13px var(--green);animation:pulse 1.8s infinite}
-@keyframes pulse{50%{opacity:.35;transform:scale(.7)}}
-.hero{position:relative;padding-top:72px;padding-bottom:65px}
-.kicker{display:inline-flex;align-items:center;gap:8px;color:#9ebdff;font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
-.kicker:before{content:"";width:26px;height:1px;background:linear-gradient(90deg,var(--blue),var(--cyan))}
-.hero h1{font-size:clamp(43px,6.2vw,82px);line-height:.98;letter-spacing:-4px;max-width:970px;margin:16px 0 20px;background:linear-gradient(105deg,#fff 20%,#b9d2ff 55%,#aa93ff 100%);color:transparent;background-clip:text;-webkit-background-clip:text}
-.hero p{max-width:690px;color:#929eb1;font-size:14px;line-height:1.8;margin:0}
-.metrics{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
-.metric{min-width:125px;padding:13px 15px;border:1px solid var(--line);background:rgba(255,255,255,.035);border-radius:14px;backdrop-filter:blur(12px)}
-.metric strong{font-size:18px;display:block}.metric small{font-size:10px;color:#7e8a9c}
-main{padding-top:28px;padding-bottom:90px}
-.searchbar{position:sticky;top:14px;z-index:30;display:flex;gap:9px;padding:9px;border:1px solid rgba(255,255,255,.1);border-radius:18px;background:rgba(10,15,24,.74);backdrop-filter:blur(20px);box-shadow:0 20px 60px rgba(0,0,0,.25)}
-.searchbox{position:relative;flex:1}.searchbox:before{content:"⌕";position:absolute;left:17px;top:50%;transform:translateY(-53%);font-size:22px;color:#66748a}
-input{font-family:inherit}.searchbar input,.modal-search input{width:100%;height:46px;border:1px solid transparent;border-radius:12px;background:rgba(255,255,255,.045);color:#fff;outline:none;padding:0 15px 0 47px;transition:.25s}
-.searchbar input::placeholder,.modal-search input::placeholder{color:#67758a}
-.searchbar input:focus,.modal-search input:focus{border-color:rgba(77,141,255,.58);background:rgba(77,141,255,.055);box-shadow:0 0 0 4px rgba(77,141,255,.08)}
-.btn{height:46px;border:0;border-radius:12px;padding:0 18px;font-weight:700;transition:.22s}
-.primary{background:linear-gradient(135deg,#4d8dff,#7258ef);color:#fff;box-shadow:0 10px 28px rgba(77,141,255,.2)}.primary:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(77,141,255,.3)}
-.secondary{background:#161e2c;color:#dbe4f2;border:1px solid var(--line)}.secondary:hover{background:#1c2637}
-.section{margin-top:38px}.section-title{display:flex;justify-content:space-between;align-items:end;margin-bottom:15px}.section-title h2{font-size:18px;margin:0;letter-spacing:-.4px}.muted{font-size:11px;color:var(--muted)}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.card{min-height:205px;position:relative;overflow:hidden;padding:22px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,rgba(18,26,39,.9),rgba(10,15,23,.9));cursor:pointer;box-shadow:0 12px 50px rgba(0,0,0,.15);transition:.35s cubic-bezier(.2,.8,.2,1);animation:appear .65s both}
-.card:nth-child(2){animation-delay:.08s}.card:nth-child(3){animation-delay:.16s}.card:nth-child(4){animation-delay:.24s}
-@keyframes appear{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-.card:before{content:"";position:absolute;width:190px;height:190px;right:-95px;top:-95px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--violet));filter:blur(55px);opacity:.11;transition:.45s}
-.card:after{content:"↗";position:absolute;right:20px;bottom:17px;color:#536176;font-size:19px;transition:.3s}
-.card:hover{transform:translateY(-9px);border-color:rgba(91,145,255,.42);box-shadow:var(--shadow)}.card:hover:before{opacity:.27;transform:scale(1.3)}.card:hover:after{color:#a9c5ff;transform:translate(3px,-3px)}
-.icon{width:54px;height:54px;border-radius:17px;display:grid;place-items:center;font-size:25px;background:linear-gradient(145deg,rgba(77,141,255,.13),rgba(138,98,255,.08));border:1px solid rgba(112,151,255,.18);transition:.35s}
-.card:hover .icon{transform:rotate(-4deg) scale(1.08);box-shadow:0 12px 30px rgba(77,141,255,.12)}
-.card h3{font-size:15px;margin:18px 0 7px}.card .muted{font-size:12px}
-.table-list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.table-card{position:relative;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:15px 16px;border:1px solid var(--line);border-radius:16px;background:rgba(14,21,32,.7);overflow:hidden;transition:.25s}
-.table-card:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:2px;background:linear-gradient(var(--blue),var(--violet));opacity:.65}
+.side-title{font-weight:800;font-size:13px}
+.side-sub{font-size:10px;color:#7f8da2;margin-top:2px}
+.side-group{margin-bottom:18px}
+.side-group-title{font-size:9.5px;font-weight:800;letter-spacing:.15em;color:#5f6b80;text-transform:uppercase;padding:0 10px 8px}
+.side-link{display:flex;align-items:center;gap:11px;padding:9px 11px;border-radius:10px;color:#b6c2d4;font-size:12px;font-weight:600;text-decoration:none;cursor:pointer;transition:.18s;margin-bottom:2px;position:relative}
+.side-link:hover{background:rgba(255,255,255,.04);color:#fff}
+.side-link.active{background:linear-gradient(135deg,rgba(77,141,255,.16),rgba(138,98,255,.09));color:#fff;border:1px solid rgba(112,151,255,.22)}
+.side-link .ic{width:18px;text-align:center;font-size:14px}
+.side-link .nm{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.side-link .ct{font-size:10px;font-weight:700;color:#6b7890;background:rgba(255,255,255,.05);padding:3px 7px;border-radius:6px}
+.side-link.active .ct{color:#a9c5ff;background:rgba(77,141,255,.16)}
+.side-footer{margin-top:auto;padding-top:14px;border-top:1px solid var(--line)}
+.side-user{display:flex;align-items:center;gap:10px;padding:10px 11px;border-radius:11px;background:rgba(255,255,255,.03);border:1px solid var(--line)}
+.side-avatar{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#4d8dff,#7258ef);display:grid;place-items:center;font-weight:800;font-size:12px;flex-shrink:0}
+.side-user-info{flex:1;min-width:0}
+.side-user-name{font-size:11.5px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.side-user-role{font-size:9.5px;color:#6b7890;margin-top:1px}
+#logoutBtn{margin-top:8px;width:100%;display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:9px 13px;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.025);color:#aab6c8;font-family:inherit;font-size:11px;font-weight:700;cursor:pointer;transition:.2s}
+#logoutBtn:hover{background:rgba(255,80,80,.08);border-color:rgba(255,80,80,.28);color:#ff9d9d}
+
+/* ---------- CONTENT ---------- */
+.content{flex:1;margin-left:var(--sidebar-w);min-width:0;display:flex;flex-direction:column}
+
+/* ---------- TOP BAR ---------- */
+.topbar{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:14px;padding:14px 26px;border-bottom:1px solid var(--line);background:rgba(8,12,19,.82);backdrop-filter:blur(20px)}
+.crumbs{display:flex;align-items:center;gap:8px;font-size:12px;color:#8b96a8;flex:1;min-width:0}
+.crumbs .link{color:#a9c5ff;cursor:pointer;font-weight:700;transition:.15s;white-space:nowrap}
+.crumbs .link:hover{color:#fff}
+.crumbs .sep{color:#3b475d}
+.crumbs .current{color:#fff;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cmd-hint{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border-radius:9px;background:rgba(255,255,255,.035);border:1px solid var(--line);color:#8b96a8;font-size:11px;cursor:pointer;transition:.2s;user-select:none}
+.cmd-hint:hover{background:rgba(255,255,255,.06);color:#fff}
+.cmd-hint kbd{font-family:inherit;font-size:10px;font-weight:700;padding:2px 5px;border-radius:5px;background:rgba(255,255,255,.06);color:#a9c5ff}
+
+/* ---------- PAGE ---------- */
+.page{padding:30px 26px 90px;max-width:1320px;width:100%}
+.page.hidden{display:none}
+.page-head{margin-bottom:26px}
+.kicker{display:inline-flex;align-items:center;gap:8px;color:#9ebdff;font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+.kicker:before{content:"";width:22px;height:1px;background:linear-gradient(90deg,var(--blue),var(--cyan))}
+.page-head h1{font-size:clamp(30px,3.6vw,44px);line-height:1.05;letter-spacing:-1.6px;margin:12px 0 8px;background:linear-gradient(105deg,#fff 20%,#b9d2ff 55%,#aa93ff 100%);color:transparent;background-clip:text;-webkit-background-clip:text}
+.page-head p{max-width:640px;color:#929eb1;font-size:13px;line-height:1.75;margin:0}
+
+/* ---------- DASHBOARD METRICS ---------- */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:26px}
+.metric{position:relative;overflow:hidden;padding:18px 18px 16px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,rgba(18,26,39,.85),rgba(10,15,23,.85))}
+.metric:before{content:"";position:absolute;right:-40px;top:-40px;width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--violet));filter:blur(40px);opacity:.12}
+.metric strong{font-size:26px;display:block;letter-spacing:-.8px;position:relative}
+.metric small{font-size:9.5px;color:#7e8a9c;letter-spacing:.12em;text-transform:uppercase;margin-top:6px;display:block;position:relative}
+
+/* ---------- SECTION BLOCK ---------- */
+.block{margin-top:34px}
+.block-title{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:14px;gap:12px}
+.block-title h2{font-size:16px;margin:0;letter-spacing:-.3px}
+.block-title .muted{font-size:11px;color:var(--muted)}
+
+/* ---------- PROJECT CARDS ---------- */
+.projects{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.proj-card{position:relative;overflow:hidden;padding:20px 20px 18px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(145deg,rgba(18,26,39,.9),rgba(10,15,23,.9));cursor:pointer;transition:.35s cubic-bezier(.2,.8,.2,1);animation:appear .55s both}
+@keyframes appear{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.proj-card:before{content:"";position:absolute;width:170px;height:170px;right:-85px;top:-85px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--violet));filter:blur(52px);opacity:.10;transition:.45s}
+.proj-card:after{content:"→";position:absolute;right:18px;bottom:16px;color:#536176;font-size:17px;transition:.3s}
+.proj-card:hover{transform:translateY(-7px);border-color:rgba(91,145,255,.42);box-shadow:var(--shadow)}
+.proj-card:hover:before{opacity:.24;transform:scale(1.3)}
+.proj-card:hover:after{color:#a9c5ff;transform:translate(3px,-3px)}
+.proj-card .p-ic{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;font-size:22px;background:linear-gradient(145deg,rgba(77,141,255,.13),rgba(138,98,255,.08));border:1px solid rgba(112,151,255,.18);transition:.35s}
+.proj-card:hover .p-ic{transform:rotate(-4deg) scale(1.08)}
+.proj-card h3{font-size:14.5px;margin:16px 0 6px;letter-spacing:-.2px}
+.proj-card .p-stat{font-size:11px;color:#7e8a9c;line-height:1.5}
+.proj-card .p-bar{margin-top:12px;height:3px;border-radius:2px;background:rgba(255,255,255,.06);overflow:hidden}
+.proj-card .p-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--violet));width:0;transition:width .8s cubic-bezier(.2,.8,.2,1)}
+
+/* ---------- RECENT ---------- */
+.recent{display:flex;flex-direction:column;gap:8px}
+.recent-item{display:flex;align-items:center;gap:14px;padding:13px 15px;border:1px solid var(--line);border-radius:14px;background:rgba(14,21,32,.65);cursor:pointer;transition:.2s}
+.recent-item:hover{transform:translateX(4px);background:rgba(20,29,43,.9);border-color:rgba(77,141,255,.32)}
+.recent-item .ri-icon{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:rgba(77,141,255,.1);flex-shrink:0;font-size:17px}
+.recent-item .ri-main{flex:1;min-width:0}
+.recent-item .ri-name{font-weight:700;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.recent-item .ri-meta{font-size:10px;color:#6b7890;margin-top:4px}
+.recent-item .ri-badge{font-size:9.5px;font-weight:700;color:#a9c5ff;background:rgba(77,141,255,.12);border:1px solid rgba(77,141,255,.22);padding:4px 8px;border-radius:7px;white-space:nowrap}
+
+/* ---------- TABLES GRID ---------- */
+.tables{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.table-card{position:relative;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 17px;border:1px solid var(--line);border-radius:16px;background:rgba(14,21,32,.7);overflow:hidden;transition:.25s;text-decoration:none;color:inherit}
+.table-card:before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:2px;background:linear-gradient(var(--blue),var(--violet));opacity:.7}
 .table-card:hover{transform:translateX(5px);border-color:rgba(77,141,255,.3);background:rgba(20,29,43,.9)}
-.table-card b{font-size:12px}.table-card .muted{margin-top:4px}.table-card a{text-decoration:none;font-size:11px;font-weight:700;color:#a8c4ff;padding:9px 12px;border-radius:9px;background:rgba(77,141,255,.09);border:1px solid rgba(77,141,255,.18);transition:.2s;white-space:nowrap}.table-card a:hover{background:var(--blue);color:#fff}
-.modal{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,3,9,.78);backdrop-filter:blur(15px)}
-.modal.show{display:flex;animation:fadein .2s}@keyframes fadein{from{opacity:0}to{opacity:1}}
-.modal-box{width:min(850px,100%);max-height:87vh;padding:26px;border-radius:25px;background:linear-gradient(145deg,#131c2a,#080d15);border:1px solid rgba(255,255,255,.12);box-shadow:0 40px 120px rgba(0,0,0,.6);display:flex;flex-direction:column;animation:modal .3s both}
-@keyframes modal{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}
-.modal-box h2{margin:0 0 5px;font-size:21px}.modal-sub{font-size:11px;color:var(--muted);margin-bottom:15px}.modal-search{margin-bottom:12px}
-.file-list{overflow-y:auto;min-height:0;padding-right:4px}.file-list::-webkit-scrollbar{width:6px}.file-list::-webkit-scrollbar-thumb{background:#33425a;border-radius:9px}
-.file-item{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.025);margin-bottom:8px;cursor:pointer;transition:.2s}
+.table-card .t-main{flex:1;min-width:0}
+.table-card b{font-size:12.5px;display:block}
+.table-card .t-sub{font-size:10.5px;color:#718096;margin-top:4px}
+.table-card .t-open{font-size:10.5px;font-weight:700;color:#a8c4ff;padding:8px 11px;border-radius:9px;background:rgba(77,141,255,.09);border:1px solid rgba(77,141,255,.18);transition:.2s;white-space:nowrap}
+.table-card:hover .t-open{background:var(--blue);color:#fff}
+
+/* ---------- SECTIONS ---------- */
+.sections{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:18px}
+.section-tile{padding:18px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(145deg,rgba(18,26,39,.85),rgba(10,15,23,.85));cursor:pointer;transition:.28s;position:relative;overflow:hidden}
+.section-tile:hover{transform:translateY(-4px);border-color:rgba(91,145,255,.4);box-shadow:0 16px 42px rgba(0,0,0,.3)}
+.section-tile .s-ic{font-size:24px;margin-bottom:10px}
+.section-tile h4{margin:0 0 4px;font-size:13px;letter-spacing:-.2px}
+.section-tile .s-count{font-size:11px;color:#7e8a9c}
+
+/* ---------- FILE LIST ---------- */
+.file-list{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.file-item{display:flex;align-items:center;gap:13px;padding:13px 15px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.02);cursor:pointer;transition:.2s}
 .file-item:hover{transform:translateX(4px);background:rgba(77,141,255,.055);border-color:rgba(77,141,255,.35)}
-.fi-icon{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;background:rgba(77,141,255,.1);flex-shrink:0}.fi-main{flex:1;min-width:0}.fi-name{font-weight:700;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fi-desc{font-size:10px;color:#718096;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fi-size{font-size:9px;color:#657287;white-space:nowrap}.fi-dl{font-size:10px;font-weight:700;background:linear-gradient(135deg,#4d8dff,#7058ef);padding:8px 10px;border-radius:8px;white-space:nowrap}
-.modal-actions{display:flex;justify-content:flex-end;margin-top:14px}.toast{position:fixed;right:20px;bottom:20px;z-index:200;display:none;padding:13px 16px;border-radius:13px;background:#101927;border:1px solid rgba(77,141,255,.28);box-shadow:0 20px 60px rgba(0,0,0,.4);font-size:11px}.toast b{display:block;margin-bottom:4px}
-.errbox{max-width:1280px;margin:20px auto;padding:16px;background:#34131a;color:#fecaca;border:1px solid #7f1d1d;border-radius:12px;font-family:monospace;font-size:12px;white-space:pre-wrap}
-#searchSection{animation:appear .3s both}
-@media(max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:760px){
- .container{padding-left:18px;padding-right:18px}.live{display:none}header{min-height:auto}.hero{padding-top:52px}.hero h1{font-size:45px;letter-spacing:-2.4px}.searchbar{position:relative;top:auto;flex-direction:column}.table-list{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.file-item .fi-size{display:none}
-}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+.fi-icon{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;background:rgba(77,141,255,.1);flex-shrink:0;font-size:17px}
+.fi-main{flex:1;min-width:0}
+.fi-name{font-weight:700;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fi-desc{font-size:10px;color:#718096;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fi-size{font-size:9.5px;color:#657287;white-space:nowrap;flex-shrink:0}
+.fi-dl{font-size:10px;font-weight:700;background:linear-gradient(135deg,#4d8dff,#7058ef);padding:7px 10px;border-radius:8px;white-space:nowrap;flex-shrink:0}
+
+/* ---------- COMMAND PALETTE ---------- */
+.cmd-overlay{position:fixed;inset:0;z-index:200;display:none;align-items:flex-start;justify-content:center;padding:100px 20px 20px;background:rgba(0,3,9,.78);backdrop-filter:blur(15px)}
+.cmd-overlay.show{display:flex;animation:fadein .18s}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+.cmd-box{width:min(680px,100%);border:1px solid rgba(255,255,255,.12);border-radius:20px;background:linear-gradient(145deg,#131c2a,#080d15);box-shadow:0 40px 120px rgba(0,0,0,.6);overflow:hidden;animation:modal .25s both}
+@keyframes modal{from{opacity:0;transform:translateY(-16px) scale(.98)}to{opacity:1;transform:none}}
+.cmd-input-wrap{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line)}
+.cmd-input-wrap .ic{font-size:20px;color:#66748a}
+.cmd-input-wrap input{flex:1;border:0;background:transparent;outline:none;color:#fff;font-family:inherit;font-size:14px;padding:0}
+.cmd-input-wrap input::placeholder{color:#67758a}
+.cmd-input-wrap .esc-hint{font-size:10px;color:#66748a;padding:4px 8px;border-radius:6px;background:rgba(255,255,255,.05);font-weight:700}
+.cmd-results{max-height:480px;overflow-y:auto;padding:8px}
+.cmd-results::-webkit-scrollbar{width:6px}
+.cmd-results::-webkit-scrollbar-thumb{background:#33425a;border-radius:8px}
+.cmd-group-title{padding:10px 12px 6px;font-size:9.5px;font-weight:800;letter-spacing:.14em;color:#5f6b80;text-transform:uppercase}
+.cmd-item{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:11px;cursor:pointer;transition:.14s}
+.cmd-item:hover,.cmd-item.active{background:rgba(77,141,255,.12)}
+.cmd-item .ci-ic{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:rgba(77,141,255,.1);font-size:15px;flex-shrink:0}
+.cmd-item .ci-main{flex:1;min-width:0}
+.cmd-item .ci-name{font-weight:700;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cmd-item .ci-meta{font-size:10px;color:#6b7890;margin-top:3px}
+.cmd-item .ci-type{font-size:9.5px;font-weight:700;color:#a9c5ff;padding:3px 7px;border-radius:6px;background:rgba(77,141,255,.12);white-space:nowrap}
+.cmd-empty{padding:40px 20px;text-align:center;color:#6b7890;font-size:12px}
+
+/* ---------- TOAST ---------- */
+.toast{position:fixed;right:20px;bottom:20px;z-index:220;display:none;padding:13px 16px;border-radius:13px;background:#101927;border:1px solid rgba(77,141,255,.28);box-shadow:0 20px 60px rgba(0,0,0,.4);font-size:11.5px;max-width:340px}
+.toast b{display:block;margin-bottom:4px}
+.errbox{margin:20px 0;padding:16px;background:#34131a;color:#fecaca;border:1px solid #7f1d1d;border-radius:12px;font-family:monospace;font-size:12px;white-space:pre-wrap}
 
 /* ============================================================
-   ЭКРАН БЛОКИРОВКИ — защита паролем
+   ЭКРАН БЛОКИРОВКИ
    ============================================================ */
-#lockScreen{
-  position:fixed;inset:0;z-index:1000;
-  display:flex;align-items:center;justify-content:center;
-  padding:24px;
-  background:
+#lockScreen{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:24px;background:
     radial-gradient(circle at 50% -15%,rgba(77,141,255,.22),transparent 35%),
     radial-gradient(circle at 100% 60%,rgba(138,98,255,.13),transparent 30%),
     linear-gradient(180deg,#070b12,#080c13 55%,#05070b);
-  transition:opacity .5s ease,visibility .5s ease;
-}
+  transition:opacity .5s ease,visibility .5s ease}
 #lockScreen.hidden{opacity:0;visibility:hidden;pointer-events:none}
-#lockScreen:before{
-  content:"";position:absolute;inset:0;opacity:.22;pointer-events:none;
-  background-image:
-    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
-  background-size:42px 42px;
-  mask-image:linear-gradient(#000,transparent 90%);
-}
-#lockScreen .lock-glow{
-  position:absolute;left:50%;top:-180px;transform:translateX(-50%);
-  width:640px;height:400px;border-radius:50%;
-  background:rgba(54,117,255,.22);filter:blur(90px);
-  animation:breath 8s ease-in-out infinite;
-}
-#lockScreen .lock-box{
-  position:relative;z-index:2;width:min(440px,100%);
-  padding:34px 30px 30px;
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:24px;
-  background:linear-gradient(145deg,rgba(19,28,42,.92),rgba(8,13,21,.92));
-  box-shadow:0 40px 120px rgba(0,0,0,.6);
-  backdrop-filter:blur(20px);
-  animation:lockAppear .5s cubic-bezier(.2,.8,.2,1) both;
-}
+#lockScreen:before{content:"";position:absolute;inset:0;opacity:.22;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(#000,transparent 90%)}
+#lockScreen .lock-glow{position:absolute;left:50%;top:-180px;transform:translateX(-50%);width:640px;height:400px;border-radius:50%;background:rgba(54,117,255,.22);filter:blur(90px);animation:breath 8s ease-in-out infinite}
+@keyframes breath{50%{transform:translateX(-50%) scale(1.13);opacity:.7}}
+#lockScreen .lock-box{position:relative;z-index:2;width:min(440px,100%);padding:34px 30px 30px;border:1px solid rgba(255,255,255,.12);border-radius:24px;background:linear-gradient(145deg,rgba(19,28,42,.92),rgba(8,13,21,.92));box-shadow:0 40px 120px rgba(0,0,0,.6);backdrop-filter:blur(20px);animation:lockAppear .5s cubic-bezier(.2,.8,.2,1) both}
 @keyframes lockAppear{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
-#lockScreen .lock-logo{
-  width:58px;height:58px;margin:0 auto 20px;
-  border:1px solid rgba(255,255,255,.14);border-radius:17px;
-  background:linear-gradient(145deg,#4c8fff,#7759ef);
-  display:grid;place-items:center;
-  font-weight:800;font-size:24px;color:#fff;
-  box-shadow:0 14px 40px rgba(77,141,255,.35);
-  position:relative;overflow:hidden;
-}
-#lockScreen .lock-logo i{
-  position:absolute;width:100px;height:20px;
-  background:rgba(255,255,255,.2);
-  transform:rotate(-35deg) translateX(-80px);
-  animation:scan 4s infinite;
-}
-#lockScreen .lock-title{
-  text-align:center;font-size:19px;font-weight:800;letter-spacing:-.4px;margin:0 0 6px;
-}
-#lockScreen .lock-sub{
-  text-align:center;font-size:12px;color:#8b96a8;margin:0 0 24px;line-height:1.6;
-}
+#lockScreen .lock-logo{width:58px;height:58px;margin:0 auto 20px;border:1px solid rgba(255,255,255,.14);border-radius:17px;background:linear-gradient(145deg,#4c8fff,#7759ef);display:grid;place-items:center;font-weight:800;font-size:24px;color:#fff;box-shadow:0 14px 40px rgba(77,141,255,.35);position:relative;overflow:hidden}
+#lockScreen .lock-logo i{position:absolute;width:100px;height:20px;background:rgba(255,255,255,.2);transform:rotate(-35deg) translateX(-80px);animation:scan 4s infinite}
+#lockScreen .lock-title{text-align:center;font-size:19px;font-weight:800;letter-spacing:-.4px;margin:0 0 6px}
+#lockScreen .lock-sub{text-align:center;font-size:12px;color:#8b96a8;margin:0 0 24px;line-height:1.6}
 #lockScreen .lock-field{position:relative}
-#lockScreen .lock-field input{
-  width:100%;height:50px;
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:13px;
-  background:rgba(255,255,255,.045);
-  color:#fff;font-family:inherit;font-size:14px;
-  padding:0 48px 0 16px;
-  outline:none;transition:.25s;
-}
+#lockScreen .lock-field input{width:100%;height:50px;border:1px solid rgba(255,255,255,.1);border-radius:13px;background:rgba(255,255,255,.045);color:#fff;font-family:inherit;font-size:14px;padding:0 48px 0 16px;outline:none;transition:.25s}
 #lockScreen .lock-field input::placeholder{color:#67758a}
-#lockScreen .lock-field input:focus{
-  border-color:rgba(77,141,255,.58);
-  background:rgba(77,141,255,.06);
-  box-shadow:0 0 0 4px rgba(77,141,255,.09);
-}
-#lockScreen .lock-field input.denied{
-  border-color:rgba(255,120,120,.6);
-  box-shadow:0 0 0 4px rgba(255,80,80,.12);
-}
-#lockScreen .lock-toggle{
-  position:absolute;right:6px;top:50%;transform:translateY(-50%);
-  width:38px;height:38px;
-  border:0;border-radius:10px;
-  background:transparent;color:#67758a;
-  font-size:16px;cursor:pointer;transition:.2s;
-}
+#lockScreen .lock-field input:focus{border-color:rgba(77,141,255,.58);background:rgba(77,141,255,.06);box-shadow:0 0 0 4px rgba(77,141,255,.09)}
+#lockScreen .lock-field input.denied{border-color:rgba(255,120,120,.6);box-shadow:0 0 0 4px rgba(255,80,80,.12)}
+#lockScreen .lock-toggle{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:38px;height:38px;border:0;border-radius:10px;background:transparent;color:#67758a;font-size:16px;cursor:pointer;transition:.2s}
 #lockScreen .lock-toggle:hover{background:rgba(255,255,255,.05);color:#a9c5ff}
-#lockScreen .lock-btn{
-  width:100%;height:50px;margin-top:14px;
-  border:0;border-radius:13px;
-  font-family:inherit;font-size:13px;font-weight:800;letter-spacing:.3px;
-  color:#fff;cursor:pointer;transition:.25s;
-  background:linear-gradient(135deg,#4d8dff,#7258ef);
-  box-shadow:0 12px 32px rgba(77,141,255,.28);
-}
+#lockScreen .lock-btn{width:100%;height:50px;margin-top:14px;border:0;border-radius:13px;font-family:inherit;font-size:13px;font-weight:800;letter-spacing:.3px;color:#fff;cursor:pointer;transition:.25s;background:linear-gradient(135deg,#4d8dff,#7258ef);box-shadow:0 12px 32px rgba(77,141,255,.28)}
 #lockScreen .lock-btn:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(77,141,255,.4)}
 #lockScreen .lock-btn:disabled{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none}
-#lockScreen .lock-remember{
-  display:flex;align-items:center;gap:9px;
-  margin-top:16px;font-size:12px;color:#8b96a8;
-  cursor:pointer;user-select:none;
-}
-#lockScreen .lock-remember input{
-  appearance:none;width:16px;height:16px;margin:0;
-  border:1px solid rgba(255,255,255,.18);
-  border-radius:5px;background:rgba(255,255,255,.04);
-  cursor:pointer;transition:.2s;position:relative;flex-shrink:0;
-}
-#lockScreen .lock-remember input:checked{
-  background:linear-gradient(135deg,#4d8dff,#7258ef);
-  border-color:transparent;
-}
-#lockScreen .lock-remember input:checked:after{
-  content:"";position:absolute;
-  left:4px;top:1px;width:5px;height:9px;
-  border:solid #fff;border-width:0 2px 2px 0;
-  transform:rotate(45deg);
-}
-#lockScreen .lock-hint{
-  margin-top:12px;text-align:center;
-  font-size:11px;color:#67758a;letter-spacing:.03em;
-}
-#lockScreen .lock-err{
-  margin-top:12px;padding:10px 13px;
-  border-radius:11px;
-  background:rgba(255,80,80,.09);
-  border:1px solid rgba(255,80,80,.28);
-  color:#ff9d9d;font-size:11.5px;
-  display:none;
-}
+#lockScreen .lock-remember{display:flex;align-items:center;gap:9px;margin-top:16px;font-size:12px;color:#8b96a8;cursor:pointer;user-select:none}
+#lockScreen .lock-remember input{appearance:none;width:16px;height:16px;margin:0;border:1px solid rgba(255,255,255,.18);border-radius:5px;background:rgba(255,255,255,.04);cursor:pointer;transition:.2s;position:relative;flex-shrink:0}
+#lockScreen .lock-remember input:checked{background:linear-gradient(135deg,#4d8dff,#7258ef);border-color:transparent}
+#lockScreen .lock-remember input:checked:after{content:"";position:absolute;left:4px;top:1px;width:5px;height:9px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+#lockScreen .lock-hint{margin-top:12px;text-align:center;font-size:11px;color:#67758a;letter-spacing:.03em}
+#lockScreen .lock-err{margin-top:12px;padding:10px 13px;border-radius:11px;background:rgba(255,80,80,.09);border:1px solid rgba(255,80,80,.28);color:#ff9d9d;font-size:11.5px;display:none}
 #lockScreen .lock-err.show{display:block;animation:shake .4s}
-@keyframes shake{
-  0%,100%{transform:translateX(0)}
-  25%{transform:translateX(-6px)}
-  75%{transform:translateX(6px)}
-}
-#lockScreen .lock-footer{
-  margin-top:22px;text-align:center;
-  font-size:10px;color:#525d70;letter-spacing:.05em;
-}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+#lockScreen .lock-footer{margin-top:22px;text-align:center;font-size:10px;color:#525d70;letter-spacing:.05em}
 
-#logoutBtn{
-  display:none;align-items:center;gap:7px;
-  padding:9px 13px;border-radius:999px;
-  border:1px solid rgba(255,255,255,.1);
-  background:rgba(255,255,255,.035);
-  color:#aab6c8;font-family:inherit;font-size:11px;font-weight:700;
-  cursor:pointer;transition:.2s;
+.menu-toggle{display:none;width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.035);color:#b6c2d4;font-size:18px;cursor:pointer}
+
+@media(max-width:1100px){.metrics{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){
+  .sidebar{transform:translateX(-100%);transition:.3s;width:280px}
+  .sidebar.open{transform:translateX(0)}
+  .content{margin-left:0}
+  .menu-toggle{display:grid;place-items:center}
+  .topbar{padding:12px 16px}
+  .page{padding:22px 16px 70px}
+  .cmd-hint span.txt{display:none}
 }
-#logoutBtn:hover{background:rgba(255,80,80,.08);border-color:rgba(255,80,80,.28);color:#ff9d9d}
-#logoutBtn.show{display:inline-flex}
+@media(max-width:640px){
+  .metrics{grid-template-columns:1fr}
+  .proj-card{padding:16px}
+  .page-head h1{font-size:30px;letter-spacing:-1px}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
-<div class="header-glow"></div>
-<header>
- <div class="container">
-  <nav class="nav">
-   <div class="brand"><div class="logo">П<i></i></div><div><div class="brand-title" id="companyName">Проектный отдел</div><div class="brand-sub" id="subtitle">ТЗ • Прошивки • Акты • инструкции • онлайн-таблицы</div></div></div>
-   <div class="nav-right">
-     <div class="live"><span></span> База активна</div>
-     <button id="logoutBtn" type="button">⎋ Выйти</button>
-   </div>
-  </nav>
-  <div class="hero">
-   <div class="kicker">PROJECT KNOWLEDGE CENTER · 2026</div>
-   <h1>Вся проектная работа.<br>В одном пространстве.</h1>
-   <p>Единая точка доступа к технической документации, программному обеспечению, актам, инструкциям и рабочим таблицам проектного отдела.</p>
-   <div class="metrics">
-    <div class="metric"><strong id="heroFileCount">—</strong><small>ФАЙЛОВ В БАЗЕ</small></div>
-    <div class="metric"><strong id="heroTableCount">—</strong><small>ОНЛАЙН-ТАБЛИЦ</small></div>
-    <div class="metric"><strong>24/7</strong><small>ДОСТУП К МАТЕРИАЛАМ</small></div>
-   </div>
-   <div class="status" id="status"></div>
-  </div>
- </div>
-</header>
-<main class="container">
- <div id="errbox"></div>
- <div class="searchbar"><div class="searchbox"><input id="search" placeholder="Поиск по ТЗ, прошивкам, актам, инструкциям и таблицам…"></div><button class="btn primary" id="btnClear">Очистить</button></div>
- <section class="section" id="searchSection" style="display:none"><div class="section-title"><h2>Результаты поиска</h2><span class="muted" id="searchCount"></span></div><div class="file-list" id="searchFiles" style="max-height:none"></div><div class="table-list" id="searchTables" style="margin-top:10px"></div></section>
- <div id="normalView">
-  <section class="section"><div class="section-title"><h2>Разделы базы</h2><span class="muted">Выберите направление</span></div><div class="grid" id="categories"></div></section>
-  <section class="section"><div class="section-title"><h2>Онлайн-таблицы</h2><span class="muted">Открываются в браузере</span></div><div class="table-list" id="tables"></div></section>
- </div>
-</main>
-<div class="modal" id="filesModal"><div class="modal-box"><h2 id="fmTitle">Файлы</h2><div class="modal-sub" id="fmSub"></div><div class="modal-search"><input id="fmSearch" placeholder="Быстрый поиск по названию…"></div><div class="file-list" id="fmList"></div><div class="modal-actions"><button class="btn secondary" id="fmClose">Закрыть</button></div></div></div>
-<div class="toast" id="toast"></div>
 
 <!-- ЭКРАН БЛОКИРОВКИ -->
 <div id="lockScreen">
@@ -284,12 +244,8 @@ input{font-family:inherit}.searchbar input,.modal-search input{width:100%;height
       <input id="lockPassword"
              type="password"
              placeholder="Пароль (только латиница)"
-             autocomplete="off"
-             autocorrect="off"
-             autocapitalize="off"
-             spellcheck="false"
-             inputmode="latin"
-             maxlength="32">
+             autocomplete="off" autocorrect="off" autocapitalize="off"
+             spellcheck="false" inputmode="latin" maxlength="32">
       <button class="lock-toggle" id="lockToggle" type="button" title="Показать/скрыть">👁</button>
     </div>
     <button class="lock-btn" id="lockEnter">Войти</button>
@@ -303,384 +259,304 @@ input{font-family:inherit}.searchbar input,.modal-search input{width:100%;height
   </div>
 </div>
 
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="side-brand">
+      <div class="side-logo">П<i></i></div>
+      <div>
+        <div class="side-title">Проектный отдел</div>
+        <div class="side-sub">Knowledge Center · 2026</div>
+      </div>
+    </div>
+
+    <div class="side-group">
+      <div class="side-group-title">Обзор</div>
+      <div class="side-link active" data-nav="dashboard"><span class="ic">◈</span><span class="nm">Дашборд</span></div>
+      <div class="side-link" data-nav="cmd"><span class="ic">⌕</span><span class="nm">Поиск</span><span class="ct">⌘K</span></div>
+    </div>
+
+    <div class="side-group">
+      <div class="side-group-title">Проекты</div>
+      <div id="sideProjects"></div>
+    </div>
+
+    <div class="side-group">
+      <div class="side-group-title">Разделы</div>
+      <div id="sideSections"></div>
+    </div>
+
+    <div class="side-group">
+      <div class="side-group-title">Ресурсы</div>
+      <div class="side-link" data-nav="tables"><span class="ic">▤</span><span class="nm">Онлайн-таблицы</span><span class="ct" id="sideTableCount">0</span></div>
+    </div>
+
+    <div class="side-footer">
+      <div class="side-user">
+        <div class="side-avatar">М</div>
+        <div class="side-user-info">
+          <div class="side-user-name">Менеджер</div>
+          <div class="side-user-role">Проектный отдел</div>
+        </div>
+      </div>
+      <button id="logoutBtn" type="button">⎋ Выйти</button>
+    </div>
+  </aside>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <div class="topbar">
+      <button class="menu-toggle" id="menuToggle" type="button">☰</button>
+      <div class="crumbs" id="crumbs"><span class="current">Дашборд</span></div>
+      <div class="cmd-hint" id="cmdHint">
+        <span>⌕</span><span class="txt">Поиск</span><kbd>Ctrl</kbd><kbd>K</kbd>
+      </div>
+    </div>
+
+    <div id="errbox"></div>
+
+    <!-- DASHBOARD -->
+    <div class="page" id="pageDashboard">
+      <div class="page-head">
+        <div class="kicker">PROJECT KNOWLEDGE CENTER · 2026</div>
+        <h1>Вся проектная работа.<br>В одном пространстве.</h1>
+        <p>Единая точка доступа к технической документации, программному обеспечению, актам, инструкциям и рабочим таблицам проектного отдела.</p>
+        <div class="metrics">
+          <div class="metric"><strong id="mFiles">0</strong><small>Файлов в базе</small></div>
+          <div class="metric"><strong id="mTables">0</strong><small>Онлайн-таблиц</small></div>
+          <div class="metric"><strong>24/7</strong><small>Доступ к материалам</small></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-title">
+          <h2>Проекты</h2>
+          <span class="muted">Кликните, чтобы открыть проект</span>
+        </div>
+        <div class="projects" id="projectsGrid"></div>
+      </div>
+
+      <div class="block">
+        <div class="block-title">
+          <h2>Последние обновления</h2>
+          <span class="muted">Свежие материалы в базе</span>
+        </div>
+        <div class="recent" id="recentList"></div>
+      </div>
+
+      <div class="block">
+        <div class="block-title">
+          <h2>Онлайн-таблицы</h2>
+          <span class="muted">Открываются в браузере</span>
+        </div>
+        <div class="tables" id="tablesGrid"></div>
+      </div>
+    </div>
+
+    <!-- PROJECT -->
+    <div class="page hidden" id="pageProject">
+      <div class="page-head">
+        <div class="kicker">ПРОЕКТ</div>
+        <h1 id="projectTitle">—</h1>
+        <p id="projectDesc"></p>
+      </div>
+
+      <div class="block">
+        <div class="block-title">
+          <h2>Разделы проекта</h2>
+          <span class="muted">Выберите раздел</span>
+        </div>
+        <div class="sections" id="projectSections"></div>
+      </div>
+
+      <div class="block" id="projectFilesBlock" style="display:none">
+        <div class="block-title">
+          <h2 id="sectionTitle">—</h2>
+          <span class="muted" id="sectionCount"></span>
+        </div>
+        <div class="file-list" id="sectionFiles"></div>
+      </div>
+
+      <div class="block" id="projectTablesBlock" style="display:none">
+        <div class="block-title">
+          <h2>Онлайн-таблицы проекта</h2>
+          <span class="muted" id="projectTablesCount"></span>
+        </div>
+        <div class="tables" id="projectTables"></div>
+      </div>
+    </div>
+
+    <!-- TABLES PAGE -->
+    <div class="page hidden" id="pageTables">
+      <div class="page-head">
+        <div class="kicker">РЕСУРСЫ</div>
+        <h1>Онлайн-таблицы</h1>
+        <p>Все рабочие таблицы проектного отдела. Открываются в браузере по клику.</p>
+      </div>
+      <div class="tables" id="allTablesGrid"></div>
+    </div>
+
+    <!-- SECTION PAGE -->
+    <div class="page hidden" id="pageSection">
+      <div class="page-head">
+        <div class="kicker">РАЗДЕЛ</div>
+        <h1 id="sectionPageTitle">—</h1>
+        <p id="sectionPageDesc"></p>
+      </div>
+      <div class="file-list" id="sectionPageFiles"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- COMMAND PALETTE -->
+<div class="cmd-overlay" id="cmdOverlay">
+  <div class="cmd-box">
+    <div class="cmd-input-wrap">
+      <span class="ic">⌕</span>
+      <input id="cmdInput" placeholder="Поиск по файлам, проектам, таблицам…" autocomplete="off">
+      <span class="esc-hint">ESC</span>
+    </div>
+    <div class="cmd-results" id="cmdResults"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
 <script>
 /* ============================================================
    ДАННЫЕ САЙТА
+   ------------------------------------------------------------
+   Файлы и проекты — точно как в версии для подрядчиков.
+   Таблицы привязаны к проектам (project).
    ============================================================ */
 
-const FILES = [
-  /* -------- ТЕХНИЧЕСКИЕ ЗАДАНИЯ -------- */
-  {
-    name: "ТЗ по проекту Магнит Аптеки.pdf",
-    category: "tz",
-    url: "https://disk.360.yandex.ru/i/p4y9jy5zSxp6OQ?download=1",
-    updated: "15.09.2026"
-  },
-  {
-    name: "ТЗ по проекту Лента СМ 43.pdf",
-    category: "tz",
-    url: "https://disk.360.yandex.ru/i/ekQb9yEdSscQJg?download=1",
-    updated: "15.09.2026"
-  },
-  {
-    name: "ТЗ по проекту Лента ГМ 50.pdf",
-    category: "tz",
-    url: "https://disk.360.yandex.ru/i/GRgiRi1O-mQdYQ?download=1",
-    updated: "15.09.2026"
-  },
-  {
-    name: "Пример ФО для проектов ДП_ПЧ/ДП_ПЧ_ДО.pdf",
-    category: "tz",
-    url: "https://disk.360.yandex.ru/i/ALz1ysyTxkiPKw?download=1",
-    updated: "15.09.2026"
-  },
-  {
-    name: "ТЗ по проекту Фасадные экраны(V6).pdf",
-    category: "tz",
-    url: "https://disk.360.yandex.ru/i/lgZkruPjxKBC8A?download=1",
-    updated: "15.09.2026"
-  },
-  {
-    name: "ТЗ по проекту Фасоль.pdf",
-    category: "tz",
-    url: "https://disk.360.yandex.ru/i/NQ_Uv7MVijUkBQ?download=1",
-    updated: "15.09.2026"
-  },
-  {
-    name: "ТЗ по проекту Шелфбаннеры(V5).pdf",
-    category: "tz",
-    url: "https://disk.360.yandex.ru/i/mpYa5BP0b1M3DA?download=1",
-    updated: "15.09.2026"
-  },
-  {
-    name: "ТЗ по проекту ДП_ПЧ в ТКШ V13.pdf",
-    category: "tz",
-    url: "https://disk.360.yandex.ru/i/G7TH_CLtwZHs_w?download=1",
-    updated: "15.09.2026"
-  },
-  {
-    name: "ТЗ по проекту ДП_ПЧ в ЩМ V4.pdf",
-    category: "tz",
-    url: "https://disk.360.yandex.ru/i/BTcmRsMd6hPGqw?download=1",
-    updated: "15.09.2026"
-  },
-  {
-    name: "ТЗ по проекту ГМ Метро 32 V2.pdf",
-    category: "tz",
-    url: "https://disk.360.yandex.ru/i/6PYHcPPR5u4dXw?download=1",
-    updated: "15.09.2026"
-  },
-  {
-    name: "ЕММ (вторая).pdf",
-    category: "tz",
-    url: "https://disk.360.yandex.ru/i/WlZcpmW3xMcHSA?download=1",
-    updated: "16.09.2026"
-  },
-  {
-    name: "Логин и пароль от ЕММ.txt",
-    category: "tz",
-    url: "https://disk.360.yandex.ru/i/WlZcpmW3xMcHSA?download=1",
-    updated: "16.09.2026"
-  },
-  {
-    name: "ТЗ по установке ЕММ (первая).pdf",
-    category: "tz",
-    url: "https://disk.360.yandex.ru/i/cKIEMcyDSoImgQ?download=1",
-    updated: "16.09.2026"
-  },
-
-  /* -------- ПРОШИВКИ -------- */
-  {
-    name: "Cubic для МП х32",
-    category: "software",
-    url: "https://disk.360.yandex.ru/d/s-5bdx0gknqahA?download=1",
-    size: "31 МБ",
-    updated: "15.09.2026"
-  },
-  {
-    name: "Cubic для МП х64",
-    category: "software",
-    url: "https://disk.360.yandex.ru/d/vcTSw1BPkrhUEg?download=1",
-    size: "31 МБ",
-    updated: "15.09.2026"
-  },
-  {
-    name: "Cubic Cubic 7.7.0 для ДП_ПЧ_ТВ LMC",
-    category: "software",
-    url: "https://disk.360.yandex.ru/d/H4zLLrOEAP1-qA?download=1",
-    size: "32 МБ",
-    updated: "15.09.2026"
-  },
-  {
-    name: "Cubic 7.7.0 apax для ДП в Магнит Аптеках",
-    category: "software",
-    url: "https://disk.360.yandex.ru/d/4Yjx0rLtAABLiw?download=1",
-    size: "32 МБ",
-    updated: "15.09.2026"
-  },
-  {
-    name: "Cubic 7.7.0 для ДП_ПЧ_ТВ",
-    category: "software",
-    url: "https://disk.360.yandex.ru/d/3qiFnXPSjJQmLQ?download=1",
-    size: "32 МБ",
-    updated: "15.09.2026"
-  },
-  {
-    name: "ADB.zip",
-    category: "software",
-    url: "https://disk.360.yandex.ru/d/IbVVQPB-0kGNnw?download=1",
-    size: "75 МБ",
-    updated: "16.09.2026"
-  },
-  {
-    name: "EMM 2.54.5.7z",
-    category: "software",
-    url: "https://disk.360.yandex.ru/d/LEs4tV9nVhrvmA?download=1",
-    size: "22 МБ",
-    updated: "16.09.2026"
-  },
-
-  /* -------- АКТЫ -------- */
-  {
-    name: "Акт АВР ПАО Вымпелком",
-    category: "acts",
-    url: "https://disk.360.yandex.ru/i/cRHnrXU6e2lunQ?download=1",
-    updated: "17.09.2026"
-  },
-  {
-    name: "Акт ТН Фасоль 32 диагональ.pdf",
-    category: "acts",
-    url: "https://disk.360.yandex.ru/i/GHxahqDaVUC6Rg?download=1",
-    updated: "17.09.2026"
-  },
-  {
-    name: "Акт ТН Фасоль 43 диагональ.pdf",
-    category: "acts",
-    url: "https://disk.360.yandex.ru/i/EZKhQPGEG-72Ww?download=1",
-    updated: "17.09.2026"
-  },
-  {
-    name: "Акт Фасоль.docx",
-    category: "acts",
-    url: "https://disk.360.yandex.ru/i/XBgnewWcIypQ8A?download=1",
-    updated: "17.09.2026"
-  },
-  {
-    name: "Акт выполненных работ по ТО+ЕММ.pdf",
-    category: "acts",
-    url: "https://disk.360.yandex.ru/i/t-fuSl9423WnNw?download=1",
-    updated: "17.09.2026"
-  },
-  {
-    name: "Акт демонтажа.pdf",
-    category: "acts",
-    url: "https://disk.360.yandex.ru/i/URiRo_G-6E1KRA?download=1",
-    updated: "17.09.2026"
-  },
-  {
-    name: "Акт о неисправности оборудования ДП_ПЧ.docx",
-    category: "acts",
-    url: "https://disk.360.yandex.ru/i/zy73GMjnCSw5wQ?download=1",
-    updated: "17.09.2026"
-  },
-  {
-    name: "Акт о повторном выезде ДП_ПЧ.docx",
-    category: "acts",
-    url: "https://disk.360.yandex.ru/i/J2BRAYLt8rV_Pg?download=1",
-    updated: "17.09.2026"
-  },
-  {
-    name: "Акт об отсутствии оборудования ДП_ПЧ.docx",
-    category: "acts",
-    url: "https://disk.360.yandex.ru/i/U-AW76cD1HAEkQ?download=1",
-    updated: "17.09.2026"
-  },
-  {
-    name: "Акт обследования точки Фасадники.docx",
-    category: "acts",
-    url: "https://disk.360.yandex.ru/i/GMsWhnmc_lkIOA?download=1",
-    updated: "17.09.2026"
-  },
-  {
-    name: "Акт осмотра оборудования.pdf",
-    category: "acts",
-    url: "https://disk.360.yandex.ru/i/rTLiBFtxxBn6ug?download=1",
-    updated: "17.09.2026"
-  },
-  {
-    name: "Акт по Ленте.docx",
-    category: "acts",
-    url: "https://disk.360.yandex.ru/i/s0NrBogv75Fj_Q?download=1",
-    updated: "17.09.2026"
-  },
-  {
-    name: "Акт приема и ведомость смонтированного оборудования ДП_ПЧ.docx",
-    category: "acts",
-    url: "https://disk.360.yandex.ru/i/lD5grNaw57R3dQ?download=1",
-    updated: "17.09.2026"
-  },
-  {
-    name: "Акт приема системы в эксплуатацию Фасадники.docx",
-    category: "acts",
-    url: "https://disk.360.yandex.ru/i/xOsyMq-_ruvMJw?download=1",
-    updated: "17.09.2026"
-  },
-  {
-    name: "Акт приема системы в эксплуатацию Шелфбаннеры.docx",
-    category: "acts",
-    url: "https://disk.360.yandex.ru/i/d0tcLHvmmLZouw?download=1",
-    updated: "17.09.2026"
-  },
-  {
-    name: "Акт приема-передачи Метро.docx",
-    category: "acts",
-    url: "https://disk.360.yandex.ru/i/R9TxUKgpJ3jp4g?download=1",
-    updated: "17.09.2026"
-  },
-  {
-    name: "Акт приема-передачи давальческого оборудования ДП_ПЧ_ДО.docx",
-    category: "acts",
-    url: "https://disk.360.yandex.ru/i/rL3snTad5UrzjA?download=1",
-    updated: "17.09.2026"
-  },
-  {
-    name: "Акт срыва монтажа Лента.docx",
-    category: "acts",
-    url: "https://disk.360.yandex.ru/i/QH1HH0CrxbHsNA?download=1",
-    updated: "17.09.2026"
-  },
-  {
-    name: "Акт технического заключения о неисправности оборудования.pdf",
-    category: "acts",
-    url: "https://disk.360.yandex.ru/i/MQWzAjHBcqIgvw?download=1",
-    updated: "17.09.2026"
-  },
-  {
-    name: "Акт типовые проблемы ТТ ДП_ПЧ.docx",
-    category: "acts",
-    url: "https://disk.360.yandex.ru/i/fhniV4_g9uyOAg?download=1",
-    updated: "17.09.2026"
-  },
-  {
-    name: "Акт установки инвентаря МЕТРО.docx",
-    category: "acts",
-    url: "https://disk.360.yandex.ru/i/6kANC-7cj_0bKg?download=1",
-    updated: "17.09.2026"
-  },
-
-  /* -------- ИНСТРУКЦИИ ДЛЯ МЕНЕДЖЕРОВ -------- */
-  {
-    name: "Инструкция для новичков по проекту ДП_ПЧ_ДО.docx",
-    category: "guides",
-    url: "https://disk.360.yandex.ru/i/Sbil02_kDsD_6A?download=1",
-    updated: "16.09.2026"
-  }
+const PROJECTS = [
+  {id:"emm",       title:"ЕММ",              icon:"📦", desc:"Документация и материалы по проекту ЕММ"},
+  {id:"dp_pch",    title:"ДП_ПЧ",            icon:"📡", desc:"Документация по проекту ДП_ПЧ"},
+  {id:"dp_pch_do", title:"ДП_ПЧ_ДО",         icon:"📡", desc:"Документация по проекту ДП_ПЧ_ДО"},
+  {id:"lenta",     title:"Лента",            icon:"🏬", desc:"Проект торговой сети Лента"},
+  {id:"metro",     title:"Метро",            icon:"🚇", desc:"Проект Метро"},
+  {id:"magnit",    title:"Магнит Аптеки",    icon:"💊", desc:"Проект Магнит Аптеки"},
+  {id:"fasad",     title:"Фасадные экраны",  icon:"🏢", desc:"Проект Фасадные экраны"},
+  {id:"shelf",     title:"Шелфбаннеры",       icon:"🪧", desc:"Проект Шелфаннеры"},
+  {id:"fasol",     title:"Фасоль",           icon:"🌰", desc:"Проект Фасоль"},
+  {id:"other",     title:"Прочее",        icon:"📂", desc:"Прочие таблицы и материалы"}
 ];
 
+const SECTIONS = [
+  {id:"tz",       title:"Технические задания", icon:"📋", desc:"ТЗ и технические документы"},
+  {id:"software", title:"Прошивки",            icon:"💿", desc:"Прошивки и программное обеспечение"},
+  {id:"acts",     title:"Акты",                icon:"📑", desc:"Шаблоны и акты выполненных работ"},
+  {id:"guides",   title:"Инструкции",          icon:"🎓", desc:"Инструкции для менеджеров и подрядчиков"}
+];
+
+/* ---------- ФАЙЛЫ (как в базе для подрядчиков, но с section) ---------- */
+const FILES = [
+  /* ========== ЕММ ========== */
+  {name:"ЕММ (вторая).pdf",                                                          project:"emm",       section:"tz",       url:"https://disk.360.yandex.ru/i/WlZcpmW3xMcHSA?download=1", updated:"16.09.2026"},
+  {name:"Логин и пароль от ЕММ.txt",                                                 project:"emm",       section:"tz",       url:"https://disk.360.yandex.ru/i/WlZcpmW3xMcHSA?download=1", updated:"16.09.2026"},
+  {name:"ТЗ по установке ЕММ (первая).pdf",                                          project:"emm",       section:"tz",       url:"https://disk.360.yandex.ru/i/cKIEMcyDSoImgQ?download=1", updated:"16.09.2026"},
+  {name:"EMM 2.54.5.7z",                                                             project:"emm",       section:"software", url:"https://disk.360.yandex.ru/d/LEs4tV9nVhrvmA?download=1", size:"22 МБ", updated:"16.09.2026"},
+  {name:"ADB.zip",                                                                   project:"emm",       section:"software", url:"https://disk.360.yandex.ru/d/IbVVQPB-0kGNnw?download=1", size:"75 МБ", updated:"16.09.2026"},
+  {name:"Акт выполненных работ по ТО+ЕММ.pdf",                                       project:"emm",       section:"acts",     url:"https://disk.360.yandex.ru/i/t-fuSl9423WnNw?download=1", updated:"17.09.2026"},
+  {name:"Акт демонтажа.pdf",                                                         project:"emm",       section:"acts",     url:"https://disk.360.yandex.ru/i/URiRo_G-6E1KRA?download=1", updated:"17.09.2026"},
+  {name:"Акт осмотра оборудования.pdf",                                              project:"emm",       section:"acts",     url:"https://disk.360.yandex.ru/i/rTLiBFtxxBn6ug?download=1", updated:"17.09.2026"},
+  {name:"Акт технического заключения о неисправности оборудования.pdf",              project:"emm",       section:"acts",     url:"https://disk.360.yandex.ru/i/MQWzAjHBcqIgvw?download=1", updated:"17.09.2026"},
+
+  /* ========== ДП_ПЧ ========== */
+  {name:"ТЗ по проекту ДП_ПЧ в ТКШ V13.pdf",                                         project:"dp_pch",    section:"tz",       url:"https://disk.360.yandex.ru/i/G7TH_CLtwZHs_w?download=1", updated:"15.09.2026"},
+  {name:"ТЗ по проекту ДП_ПЧ в ЩМ V4.pdf",                                          project:"dp_pch",    section:"tz",       url:"https://disk.360.yandex.ru/i/BTcmRsMd6hPGqw?download=1", updated:"15.09.2026"},
+  {name:"Пример ФО для проектов ДП_ПЧ/ДП_ПЧ_ДО.pdf",                                project:"dp_pch",    section:"tz",       url:"https://disk.360.yandex.ru/i/ALz1ysyTxkiPKw?download=1", updated:"15.09.2026"},
+  {name:"Cubic Cubic 7.7.0 для ДП_ПЧ_ТВ LMC",                                        project:"dp_pch",    section:"software", url:"https://disk.360.yandex.ru/d/H4zLLrOEAP1-qA?download=1", size:"32 МБ", updated:"15.09.2026"},
+  {name:"Cubic 7.7.0 для ДП_ПЧ_ТВ",                                                  project:"dp_pch",    section:"software", url:"https://disk.360.yandex.ru/d/3qiFnXPSjJQmLQ?download=1", size:"32 МБ", updated:"15.09.2026"},
+  {name:"Cubic для МП х32",                                                          project:"dp_pch",    section:"software", url:"https://disk.360.yandex.ru/d/s-5bdx0gknqahA?download=1", size:"31 МБ", updated:"15.09.2026"},
+  {name:"Cubic для МП х64",                                                          project:"dp_pch",    section:"software", url:"https://disk.360.yandex.ru/d/vcTSw1BPkrhUEg?download=1", size:"31 МБ", updated:"15.09.2026"},
+  {name:"Акт о неисправности оборудования ДП_ПЧ.docx",                              project:"dp_pch",    section:"acts",     url:"https://disk.360.yandex.ru/i/zy73GMjnCSw5wQ?download=1", updated:"17.09.2026"},
+  {name:"Акт о повторном выезде ДП_ПЧ.docx",                                        project:"dp_pch",    section:"acts",     url:"https://disk.360.yandex.ru/i/J2BRAYLt8rV_Pg?download=1", updated:"17.09.2026"},
+  {name:"Акт об отсутствии оборудования ДП_ПЧ.docx",                                project:"dp_pch",    section:"acts",     url:"https://disk.360.yandex.ru/i/U-AW76cD1HAEkQ?download=1", updated:"17.09.2026"},
+  {name:"Акт приема и ведомость смонтированного оборудования ДП_ПЧ.docx",           project:"dp_pch",    section:"acts",     url:"https://disk.360.yandex.ru/i/lD5grNaw57R3dQ?download=1", updated:"17.09.2026"},
+  {name:"Акт типовые проблемы ТТ ДП_ПЧ.docx",                                        project:"dp_pch",    section:"acts",     url:"https://disk.360.yandex.ru/i/fhniV4_g9uyOAg?download=1", updated:"17.09.2026"},
+  {name:"Акт технического заключения о неисправности оборудования.pdf",              project:"dp_pch",    section:"acts",     url:"https://disk.360.yandex.ru/i/MQWzAjHBcqIgvw?download=1", updated:"17.09.2026"},
+
+  /* ========== ДП_ПЧ_ДО ========== */
+  {name:"Пример ФО для проектов ДП_ПЧ/ДП_ПЧ_ДО.pdf",                                project:"dp_pch_do", section:"tz",       url:"https://disk.360.yandex.ru/i/ALz1ysyTxkiPKw?download=1", updated:"15.09.2026"},
+  {name:"Cubic для МП х32",                                                          project:"dp_pch_do", section:"software", url:"https://disk.360.yandex.ru/d/s-5bdx0gknqahA?download=1", size:"31 МБ", updated:"15.09.2026"},
+  {name:"Cubic для МП х64",                                                          project:"dp_pch_do", section:"software", url:"https://disk.360.yandex.ru/d/vcTSw1BPkrhUEg?download=1", size:"31 МБ", updated:"15.09.2026"},
+  {name:"Акт приема-передачи давальческого оборудования ДП_ПЧ_ДО.docx",              project:"dp_pch_do", section:"acts",     url:"https://disk.360.yandex.ru/i/rL3snTad5UrzjA?download=1", updated:"17.09.2026"},
+  {name:"Акт технического заключения о неисправности оборудования.pdf",              project:"dp_pch_do", section:"acts",     url:"https://disk.360.yandex.ru/i/MQWzAjHBcqIgvw?download=1", updated:"17.09.2026"},
+  {name:"Инструкция для новичков по проекту ДП_ПЧ_ДО.docx",                          project:"other", section:"guides",   url:"https://disk.360.yandex.ru/i/Sbil02_kDsD_6A?download=1", updated:"16.09.2026"},
+
+  /* ========== ЛЕНТА ========== */
+  {name:"ТЗ по проекту Лента СМ 43.pdf",                                             project:"lenta",     section:"tz",       url:"https://disk.360.yandex.ru/i/ekQb9yEdSscQJg?download=1", updated:"15.09.2026"},
+  {name:"ТЗ по проекту Лента ГМ 50.pdf",                                             project:"lenta",     section:"tz",       url:"https://disk.360.yandex.ru/i/GRgiRi1O-mQdYQ?download=1", updated:"15.09.2026"},
+  {name:"Акт по Ленте.docx",                                                         project:"lenta",     section:"acts",     url:"https://disk.360.yandex.ru/i/s0NrBogv75Fj_Q?download=1", updated:"17.09.2026"},
+  {name:"Акт срыва монтажа Лента.docx",                                              project:"lenta",     section:"acts",     url:"https://disk.360.yandex.ru/i/QH1HH0CrxbHsNA?download=1", updated:"17.09.2026"},
+  {name:"Акт АВР ПАО Вымпелком",                                                     project:"lenta",     section:"acts",     url:"https://disk.360.yandex.ru/i/cRHnrXU6e2lunQ?download=1", updated:"17.09.2026"},
+
+  /* ========== МЕТРО ========== */
+  {name:"ТЗ по проекту ГМ Метро 32 V2.pdf",                                          project:"metro",     section:"tz",       url:"https://disk.360.yandex.ru/i/6PYHcPPR5u4dXw?download=1", updated:"15.09.2026"},
+  {name:"Акт приема-передачи Метро.docx",                                            project:"metro",     section:"acts",     url:"https://disk.360.yandex.ru/i/R9TxUKgpJ3jp4g?download=1", updated:"17.09.2026"},
+  {name:"Акт установки инвентаря МЕТРО.docx",                                        project:"metro",     section:"acts",     url:"https://disk.360.yandex.ru/i/6kANC-7cj_0bKg?download=1", updated:"17.09.2026"},
+  {name:"Акт АВР ПАО Вымпелком",                                                     project:"metro",     section:"acts",     url:"https://disk.360.yandex.ru/i/cRHnrXU6e2lunQ?download=1", updated:"17.09.2026"},
+
+  /* ========== МАГНИТ АПТЕКИ ========== */
+  {name:"ТЗ по проекту Магнит Аптеки.pdf",                                           project:"magnit",    section:"tz",       url:"https://disk.360.yandex.ru/i/p4y9jy5zSxp6OQ?download=1", updated:"15.09.2026"},
+  {name:"Cubic 7.7.0 apax для ДП в Магнит Аптеках",                                  project:"magnit",    section:"software", url:"https://disk.360.yandex.ru/d/4Yjx0rLtAABLiw?download=1", size:"32 МБ", updated:"15.09.2026"},
+
+  /* ========== ФАСАДНЫЕ ЭКРАНЫ ========== */
+  {name:"ТЗ по проекту Фасадные экраны(V6).pdf",                                     project:"fasad",     section:"tz",       url:"https://disk.360.yandex.ru/i/lgZkruPjxKBC8A?download=1", updated:"15.09.2026"},
+  {name:"Акт обследования точки Фасадники.docx",                                    project:"fasad",     section:"acts",     url:"https://disk.360.yandex.ru/i/GMsWhnmc_lkIOA?download=1", updated:"17.09.2026"},
+  {name:"Акт приема системы в эксплуатацию Фасадники.docx",                          project:"fasad",     section:"acts",     url:"https://disk.360.yandex.ru/i/xOsyMq-_ruvMJw?download=1", updated:"17.09.2026"},
+
+  /* ========== ШЕЛФБАННЕРЫ ========== */
+  {name:"ТЗ по проекту Шелфбаннеры(V5).pdf",                                         project:"shelf",     section:"tz",       url:"https://disk.360.yandex.ru/i/mpYa5BP0b1M3DA?download=1", updated:"15.09.2026"},
+  {name:"Акт приема системы в эксплуатацию Шелфбаннеры.docx",                        project:"shelf",     section:"acts",     url:"https://disk.360.yandex.ru/i/d0tcLHvmmLZouw?download=1", updated:"17.09.2026"},
+
+  /* ========== ФАСОЛЬ ========== */
+  {name:"ТЗ по проекту Фасоль.pdf",                                                  project:"fasol",     section:"tz",       url:"https://disk.360.yandex.ru/i/NQ_Uv7MVijUkBQ?download=1", updated:"15.09.2026"},
+  {name:"Акт ТН Фасоль 32 диагональ.pdf",                                            project:"fasol",     section:"acts",     url:"https://disk.360.yandex.ru/i/GHxahqDaVUC6Rg?download=1", updated:"17.09.2026"},
+  {name:"Акт ТН Фасоль 43 диагональ.pdf",                                            project:"fasol",     section:"acts",     url:"https://disk.360.yandex.ru/i/EZKhQPGEG-72Ww?download=1", updated:"17.09.2026"},
+  {name:"Акт Фасоль.docx",                                                           project:"fasol",     section:"acts",     url:"https://disk.360.yandex.ru/i/XBgnewWcIypQ8A?download=1", updated:"17.09.2026"}
+];
+
+/* ---------- ТАБЛИЦЫ (все 15, привязаны к проектам) ---------- */
 const TABLES = [
-  {
-    name: "ММ/МК ДП_ПЧ",
-    description: "Таблица по проекту ДП_ПЧ",
-    url: "https://docs.google.com/spreadsheets/d/1a65W34zXXFRnvY-7cKw5wO7SIzNmUzMNn_VPjGmQLMw/edit?usp=sharing"
-  },
-  {
-    name: "ДП_ПЧ_ДО",
-    description: "Таблица по проекту ДП_ПЧ_ДО",
-    url: "https://docs.google.com/spreadsheets/d/1vNnodLKfv02mGDDwSllVEWSLT228eRQVA2j4CD29VT0/edit?usp=sharing"
-  },
-  {
-    name: "Шелфбаннеры",
-    description: "Таблица по проекту ШБ",
-    url: "https://docs.google.com/spreadsheets/d/16wHsiEwpaVCRsgyihnwRXZd-3JJNP1BLOLKgXxTP7Rc/edit?usp=sharing"
-  },
-  {
-    name: "Магнит аптеки",
-    description: "Таблица по проекту МА",
-    url: "https://docs.google.com/spreadsheets/d/1NDfuWojZliMcWJAoezmx8W7DiBHzLR_gTiH-XxH4EAQ/edit?usp=sharing"
-  },
-  {
-    name: "Таблица Подрядчики",
-    description: "Таблица по подрядчикам",
-    url: "https://docs.google.com/spreadsheets/d/18PZsnwJIdLvULAQOaSBdOQ4mSenNvOr5f2YrQ22aJy0/edit?usp=sharing"
-  },
-  {
-    name: "Карточки проектов",
-    description: "Таблица с карточками проектов",
-    url: "https://docs.google.com/spreadsheets/d/1CWIuah_ERjv4H_jq6yN1H3ur5OXaCKc2zJ95b3g3--0/edit?usp=sharing"
-  },
-  {
-    name: "Календарь",
-    description: "Календарь выходов",
-    url: "https://docs.google.com/spreadsheets/d/1okivQWieQDGZ0qPALgHFksF-mara8FVB59IKZYuPspE/edit?usp=sharing"
-  },
-  {
-    name: "Поиск подрядчиков",
-    description: "Таблица по поиску подрядчиков",
-    url: "https://docs.google.com/spreadsheets/d/1MQJAk2Rcuxy8iaXNDtM9JWvFTXznDumnVbOzZO2iEdY/edit?usp=sharing"
-  },
-  {
-    name: "Калькулятор ТО",
-    description: "Таблица с калькулятором ТО",
-    url: "https://docs.google.com/spreadsheets/d/1dhQkqFEo8TSfkqjed2B0ig6ejrd-hEKJvrU2Y0dWmr8/edit?gid=483175244#gid=483175244"
-  },
-  {
-    name: "Сервисное обслуживание",
-    description: "Таблица по проекту ТО+ЕММ",
-    url: "https://docs.google.com/spreadsheets/d/1QdjCuRj_qUbF5IOWDdqgbS5yGnb4byI8KEtMTPsabYA/edit?usp=sharing"
-  },
-  {
-    name: "ЕММ",
-    description: "Таблица по проекту ЕММ (список)",
-    url: "https://docs.google.com/spreadsheets/d/1SLLDFAm20Fmg0O4HGklP6kvK4FWdfd3_lFK95dZkxFA/edit?usp=sharing"
-  },
-  {
-    name: "Лента",
-    description: "Таблица по проекту Лента",
-    url: "https://docs.google.com/spreadsheets/d/15gWmk-dnApiRLLa9PtlSQiAVXcW8DAty5J55tNeURLI/edit?usp=sharing"
-  },
-  {
-    name: "Фасадные экраны",
-    description: "Таблица по проекту ФЭ",
-    url: "https://docs.google.com/spreadsheets/d/1HbW8P58z3qjeSLXYUw-q7HE9GPPHqlKdwl6QhxxLrLs/edit?usp=sharing"
-  },
-  {
-    name: "Фасоль",
-    description: "Таблица по проекту Фасоль",
-    url: "https://docs.google.com/spreadsheets/d/105JtLBxogpZ55tRVY_mwCBAdvUuBzELnLG99jHhTI_E/edit?usp=sharing"
-  },
-  {
-    name: "Метро",
-    description: "Таблица по проекту Метро",
-    url: "https://docs.google.com/spreadsheets/d/1iTWzQutDr0e_dgOKW0oG1s4OeaRpyAOxlJjbIJVxJdk/edit?usp=sharing"
-  }
+  {name:"ММ/МК ДП_ПЧ",            project:"dp_pch",    description:"Таблица по проекту ДП_ПЧ",         url:"https://docs.google.com/spreadsheets/d/1a65W34zXXFRnvY-7cKw5wO7SIzNmUzMNn_VPjGmQLMw/edit?usp=sharing"},
+  {name:"ДП_ПЧ_ДО",               project:"dp_pch_do", description:"Таблица по проекту ДП_ПЧ_ДО",      url:"https://docs.google.com/spreadsheets/d/1vNnodLKfv02mGDDwSllVEWSLT228eRQVA2j4CD29VT0/edit?usp=sharing"},
+  {name:"Шелфбаннеры",            project:"shelf",     description:"Таблица по проекту ШБ",            url:"https://docs.google.com/spreadsheets/d/16wHsiEwpaVCRsgyihnwRXZd-3JJNP1BLOLKgXxTP7Rc/edit?usp=sharing"},
+  {name:"Магнит аптеки",          project:"magnit",    description:"Таблица по проекту МА",            url:"https://docs.google.com/spreadsheets/d/1NDfuWojZliMcWJAoezmx8W7DiBHzLR_gTiH-XxH4EAQ/edit?usp=sharing"},
+  {name:"Карточки проектов",      project:"other",     description:"Таблица с карточками проектов",  url:"https://docs.google.com/spreadsheets/d/1CWIuah_ERjv4H_jq6yN1H3ur5OXaCKc2zJ95b3g3--0/edit?usp=sharing"},
+  {name:"Календарь",              project:"other",     description:"Календарь выходов",              url:"https://docs.google.com/spreadsheets/d/1okivQWieQDGZ0qPALgHFksF-mara8FVB59IKZYuPspE/edit?usp=sharing"},
+  {name:"Поиск подрядчиков",      project:"other",     description:"Таблица по поиску подрядчиков",  url:"https://docs.google.com/spreadsheets/d/1MQJAk2Rcuxy8iaXNDtM9JWvFTXznDumnVbOzZO2iEdY/edit?usp=sharing"},
+  {name:"Калькулятор ТО",         project:"other",     description:"Таблица с калькулятором ТО",     url:"https://docs.google.com/spreadsheets/d/1dhQkqFEo8TSfkqjed2B0ig6ejrd-hEKJvrU2Y0dWmr8/edit?gid=483175244#gid=483175244"},
+  {name:"Сервисное обслуживание", project:"emm",       description:"Таблица по проекту ТО+ЕММ",        url:"https://docs.google.com/spreadsheets/d/1QdjCuRj_qUbF5IOWDdqgbS5yGnb4byI8KEtMTPsabYA/edit?usp=sharing"},
+  {name:"ЕММ",                    project:"emm",       description:"Таблица по проекту ЕММ (список)",  url:"https://docs.google.com/spreadsheets/d/1SLLDFAm20Fmg0O4HGklP6kvK4FWdfd3_lFK95dZkxFA/edit?usp=sharing"},
+  {name:"Лента",                  project:"lenta",     description:"Таблица по проекту Лента",         url:"https://docs.google.com/spreadsheets/d/15gWmk-dnApiRLLa9PtlSQiAVXcW8DAty5J55tNeURLI/edit?usp=sharing"},
+  {name:"Фасадные экраны",        project:"fasad",     description:"Таблица по проекту ФЭ",            url:"https://docs.google.com/spreadsheets/d/1HbW8P58z3qjeSLXYUw-q7HE9GPPHqlKdwl6QhxxLrLs/edit?usp=sharing"},
+  {name:"Фасоль",                 project:"fasol",     description:"Таблица по проекту Фасоль",        url:"https://docs.google.com/spreadsheets/d/105JtLBxogpZ55tRVY_mwCBAdvUuBzELnLG99jHhTI_E/edit?usp=sharing"},
+  {name:"Метро",                  project:"metro",     description:"Таблица по проекту Метро",         url:"https://docs.google.com/spreadsheets/d/1iTWzQutDr0e_dgOKW0oG1s4OeaRpyAOxlJjbIJVxJdk/edit?usp=sharing"},
+  {name:"Таблица Подрядчики",     project:"dp_pch",    description:"Таблица по подрядчикам",           url:"https://docs.google.com/spreadsheets/d/18PZsnwJIdLvULAQOaSBdOQ4mSenNvOr5f2YrQ22aJy0/edit?usp=sharing"}
 ];
 
 /* ============================================================
    НИЖЕ НИЧЕГО МЕНЯТЬ НЕ НУЖНО
    ============================================================ */
 
-const CATEGORIES = [
-  {id:"tz",       title:"Технические задания",        icon:"📋"},
-  {id:"software", title:"Прошивки",                    icon:"💿"},
-  {id:"acts",     title:"Акты",                        icon:"📑"},
-  {id:"guides",   title:"Инструкции для менеджеров",  icon:"🎓"}
-];
-
 function esc(s){
   return String(s == null ? "" : s).replace(/[&<>"']/g, m => ({
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
   }[m]));
 }
-
 function plural(n, forms){
-  const a = Math.abs(n) % 100;
-  const b = a % 10;
+  const a = Math.abs(n) % 100, b = a % 10;
   if (a > 10 && a < 20) return forms[2];
   if (b > 1 && b < 5)   return forms[1];
   if (b === 1)          return forms[0];
   return forms[2];
 }
-
 function fileIcon(name){
   const n = String(name || "").toLowerCase();
   if (n.endsWith(".pdf")) return "📕";
@@ -694,297 +570,440 @@ function fileIcon(name){
   if (n.endsWith(".png") || n.endsWith(".jpg") || n.endsWith(".jpeg")) return "🖼️";
   return "📄";
 }
-
 const $ = id => document.getElementById(id);
-const els = {
-  categories: $("categories"),
-  tables:     $("tables"),
-  status:     $("status"),
-  search:     $("search"),
-  fmTitle:    $("fmTitle"),
-  fmSub:      $("fmSub"),
-  fmSearch:   $("fmSearch"),
-  fmList:     $("fmList"),
-  filesModal: $("filesModal"),
-  toast:      $("toast"),
-  errbox:     $("errbox")
-};
+function projectById(id){ return PROJECTS.find(p => p.id === id); }
+function sectionById(id){ return SECTIONS.find(s => s.id === id); }
 
-function buildTableCard(t){
-  const div = document.createElement("div");
-  div.className = "table-card";
-  div.innerHTML =
-    '<div><b>' + esc(t.name) + '</b>' +
-    '<div class="muted">' + esc(t.description || "") + '</div></div>' +
-    '<a href="' + esc(t.url) + '" target="_blank" rel="noopener">Открыть</a>';
-  return div;
-}
-
-function buildFileItem(f){
+/* ---------- элементы ---------- */
+function buildFileItem(f, withProject){
   const item = document.createElement("div");
   item.className = "file-item";
   item.setAttribute("data-url", f.url || "");
   item.setAttribute("data-name", f.name || "");
+  const p = projectById(f.project);
+  const meta = [];
+  if (withProject && p) meta.push(p.icon + " " + p.title);
+  if (f.size) meta.push(f.size);
+  if (f.updated) meta.push(f.updated);
   item.innerHTML =
     '<div class="fi-icon">' + esc(fileIcon(f.name)) + '</div>' +
     '<div class="fi-main">' +
       '<div class="fi-name">' + esc(f.name) + '</div>' +
-      '<div class="fi-desc">' + esc(f.description || "") + '</div>' +
+      (meta.length ? '<div class="fi-desc">' + esc(meta.join(" · ")) + '</div>' : '') +
     '</div>' +
-    '<div class="fi-size">' + esc(f.size || "") +
-      (f.updated ? " • " + esc(f.updated) : "") + '</div>' +
     '<div class="fi-dl">⬇ Скачать</div>';
   return item;
 }
 
-function renderCategories(){
-  els.categories.innerHTML = "";
-  const frag = document.createDocumentFragment();
-  CATEGORIES.forEach(c => {
-    const count = FILES.filter(f => f.category === c.id).length;
-    const card = document.createElement("div");
-    card.className = "card";
-    card.setAttribute("data-cat", c.id);
-    card.innerHTML =
-      '<div class="icon">' + esc(c.icon) + '</div>' +
-      '<h3>' + esc(c.title) + '</h3>' +
-      '<div class="muted">' + count + ' ' + plural(count, ["материал","материала","материалов"]) + '</div>';
-    frag.appendChild(card);
-  });
-  els.categories.appendChild(frag);
-}
-
-function renderTables(){
-  els.tables.innerHTML = "";
-  if (!TABLES.length){
-    const empty = document.createElement("div");
-    empty.className = "empty";
-    empty.textContent = "Нет таблиц";
-    els.tables.appendChild(empty);
-    return;
-  }
-  const frag = document.createDocumentFragment();
-  TABLES.forEach(t => frag.appendChild(buildTableCard(t)));
-  els.tables.appendChild(frag);
-}
-
-function renderStatus(){
-  els.status.textContent = "Файлов: " + FILES.length + " • Таблиц: " + TABLES.length;
-}
-
-function render(){
-  renderCategories();
-  renderTables();
-  renderStatus();
-}
-
-function renderSearchResults(){
-  const q = els.search.value.toLowerCase().trim();
-  const searchSection = document.getElementById("searchSection");
-  const normalView    = document.getElementById("normalView");
-  const searchFiles   = document.getElementById("searchFiles");
-  const searchTables  = document.getElementById("searchTables");
-  const searchCount   = document.getElementById("searchCount");
-
-  if (!q){
-    searchSection.style.display = "none";
-    normalView.style.display = "";
-    return;
-  }
-
-  searchSection.style.display = "";
-  normalView.style.display = "none";
-
-  const files = FILES.filter(f => {
-    const text = (
-      (f.name || "") + " " +
-      (f.description || "") + " " +
-      (f.size || "") + " " +
-      (f.updated || "")
-    ).toLowerCase();
-    return text.includes(q);
-  });
-
-  const tables = TABLES.filter(t => {
-    const text = ((t.name || "") + " " + (t.description || "")).toLowerCase();
-    return text.includes(q);
-  });
-
-  const total = files.length + tables.length;
-  searchCount.textContent = total
-    ? "Найдено: " + total + " (" + files.length + " файлов, " + tables.length + " таблиц)"
-    : "Ничего не найдено";
-
-  searchFiles.innerHTML = "";
-  searchTables.innerHTML = "";
-
-  if (files.length){
-    const frag = document.createDocumentFragment();
-    files.forEach(f => frag.appendChild(buildFileItem(f)));
-    searchFiles.appendChild(frag);
-  }
-
-  if (tables.length){
-    const frag = document.createDocumentFragment();
-    tables.forEach(t => frag.appendChild(buildTableCard(t)));
-    searchTables.appendChild(frag);
-  }
-
-  if (!files.length && !tables.length){
-    searchFiles.innerHTML = '<div class="empty">По запросу «' + esc(q) + '» ничего не найдено</div>';
-  }
-}
-
-let currentCategory = null;
-
-function openFilesModal(categoryId){
-  currentCategory = categoryId;
-  const cat = CATEGORIES.find(c => c.id === categoryId);
-  els.fmTitle.textContent = (cat ? cat.icon + " " + cat.title : "Файлы");
-  const total = FILES.filter(f => f.category === categoryId).length;
-  els.fmSub.textContent = "Всего файлов: " + total + " · клик по файлу — начать скачивание";
-  els.fmSearch.value = "";
-  renderFilesModal();
-  els.filesModal.classList.add("show");
-  setTimeout(() => els.fmSearch.focus(), 30);
-}
-
-function closeFilesModal(){
-  els.filesModal.classList.remove("show");
-  currentCategory = null;
-}
-
-function renderFilesModal(){
-  if (!currentCategory) return;
-  const q = els.fmSearch.value.toLowerCase().trim();
-  const list = FILES.filter(f =>
-    f.category === currentCategory &&
-    (!q || (f.name + " " + (f.description || "")).toLowerCase().includes(q))
-  );
-
-  els.fmList.innerHTML = "";
-  if (!list.length){
-    const empty = document.createElement("div");
-    empty.className = "empty";
-    empty.textContent = "Ничего не найдено";
-    els.fmList.appendChild(empty);
-    return;
-  }
-
-  const frag = document.createDocumentFragment();
-  list.forEach(f => frag.appendChild(buildFileItem(f)));
-  els.fmList.appendChild(frag);
-}
-
-function downloadFile(url, name){
-  if (!url){
-    toast("Ссылка на файл не указана");
-    return;
-  }
-  toast("Скачивание началось\n" + name);
-
+function buildTableCard(t){
   const a = document.createElement("a");
-  a.href = url;
-  a.rel = "noopener";
-  a.target = "_blank";
-  try {
-    if (url.startsWith(location.origin) || url.startsWith("file:")) {
-      a.download = name;
-    }
-  } catch(e){ /* ignore */ }
-
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
+  a.className = "table-card";
+  a.href = t.url; a.target = "_blank"; a.rel = "noopener";
+  const p = projectById(t.project);
+  a.innerHTML =
+    '<div class="t-main">' +
+      '<b>' + esc(t.name) + '</b>' +
+      '<div class="t-sub">' + esc((p ? p.icon + " " + p.title + " · " : "") + (t.description || "")) + '</div>' +
+    '</div>' +
+    '<div class="t-open">Открыть</div>';
+  return a;
 }
 
-document.addEventListener("click", e => {
-  const card = e.target.closest(".card[data-cat]");
-  if (card) { openFilesModal(card.getAttribute("data-cat")); return; }
+function buildProjectCard(p){
+  const count = FILES.filter(f => f.project === p.id).length;
+  const tcount = TABLES.filter(t => t.project === p.id).length;
+  const total = count + tcount;
+  const card = document.createElement("div");
+  card.className = "proj-card";
+  card.setAttribute("data-project", p.id);
+  const parts = [];
+  if (count) parts.push(count + " " + plural(count, ["файл","файла","файлов"]));
+  if (tcount) parts.push(tcount + " " + plural(tcount, ["таблица","таблицы","таблиц"]));
+  card.innerHTML =
+    '<div class="p-ic">' + esc(p.icon) + '</div>' +
+    '<h3>' + esc(p.title) + '</h3>' +
+    '<div class="p-stat">' + (parts.length ? esc(parts.join(" · ")) : "Пока пусто") + '</div>' +
+    '<div class="p-bar"><i data-w="' + Math.min(100, total * 8) + '"></i></div>';
+  return card;
+}
 
-  const item = e.target.closest(".file-item");
-  if (item){
-    downloadFile(item.getAttribute("data-url"), item.getAttribute("data-name"));
+/* ---------- sidebar ---------- */
+function renderSidebar(){
+  const sideP = $("sideProjects");
+  sideP.innerHTML = "";
+  PROJECTS.forEach(p => {
+    const count = FILES.filter(f => f.project === p.id).length;
+    const row = document.createElement("div");
+    row.className = "side-link";
+    row.setAttribute("data-nav", "project");
+    row.setAttribute("data-project", p.id);
+    row.innerHTML = '<span class="ic">' + esc(p.icon) + '</span><span class="nm">' + esc(p.title) + '</span><span class="ct">' + count + '</span>';
+    sideP.appendChild(row);
+  });
+
+  const sideS = $("sideSections");
+  sideS.innerHTML = "";
+  SECTIONS.forEach(s => {
+    const count = FILES.filter(f => f.section === s.id).length;
+    const row = document.createElement("div");
+    row.className = "side-link";
+    row.setAttribute("data-nav", "section");
+    row.setAttribute("data-section", s.id);
+    row.innerHTML = '<span class="ic">' + esc(s.icon) + '</span><span class="nm">' + esc(s.title) + '</span><span class="ct">' + count + '</span>';
+    sideS.appendChild(row);
+  });
+
+  $("sideTableCount").textContent = TABLES.length;
+}
+
+/* ---------- dashboard ---------- */
+function animateNumber(el, target){
+  const dur = 900;
+  const t0 = performance.now();
+  function tick(t){
+    const k = Math.min(1, (t - t0) / dur);
+    const v = Math.round(target * (1 - Math.pow(1 - k, 3)));
+    el.textContent = v;
+    if (k < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+function renderDashboard(){
+  animateNumber($("mFiles"), FILES.length);
+  animateNumber($("mProjects"), PROJECTS.length);
+  animateNumber($("mTables"), TABLES.length);
+
+  const grid = $("projectsGrid");
+  grid.innerHTML = "";
+  PROJECTS.forEach(p => grid.appendChild(buildProjectCard(p)));
+
+  setTimeout(() => {
+    grid.querySelectorAll(".p-bar i").forEach(b => {
+      b.style.width = (b.getAttribute("data-w") || "0") + "%";
+    });
+  }, 100);
+
+  const recent = $("recentList");
+  recent.innerHTML = "";
+  const sorted = [...FILES].sort((a,b) => {
+    const da = a.updated ? a.updated.split(".").reverse().join("") : "";
+    const db = b.updated ? b.updated.split(".").reverse().join("") : "";
+    return db.localeCompare(da);
+  }).slice(0, 6);
+  sorted.forEach(f => {
+    const p = projectById(f.project);
+    const s = sectionById(f.section);
+    const div = document.createElement("div");
+    div.className = "recent-item";
+    div.setAttribute("data-url", f.url || "");
+    div.setAttribute("data-name", f.name || "");
+    div.innerHTML =
+      '<div class="ri-icon">' + esc(fileIcon(f.name)) + '</div>' +
+      '<div class="ri-main">' +
+        '<div class="ri-name">' + esc(f.name) + '</div>' +
+        '<div class="ri-meta">' + esc((p ? p.title : "") + " · " + (s ? s.title : "") + (f.updated ? " · " + f.updated : "")) + '</div>' +
+      '</div>' +
+      '<div class="ri-badge">⬇ Скачать</div>';
+    recent.appendChild(div);
+  });
+
+  const tg = $("tablesGrid");
+  tg.innerHTML = "";
+  TABLES.forEach(t => tg.appendChild(buildTableCard(t)));
+}
+
+function renderTablesPage(){
+  const g = $("allTablesGrid");
+  g.innerHTML = "";
+  TABLES.forEach(t => g.appendChild(buildTableCard(t)));
+}
+
+/* ---------- project page ---------- */
+function renderProjectPage(projectId){
+  const p = projectById(projectId);
+  if (!p) return;
+  $("projectTitle").textContent = p.icon + " " + p.title;
+  $("projectDesc").textContent = p.desc || "";
+
+  const sections = $("projectSections");
+  sections.innerHTML = "";
+  SECTIONS.forEach(s => {
+    const count = FILES.filter(f => f.project === projectId && f.section === s.id).length;
+    if (!count) return;
+    const tile = document.createElement("div");
+    tile.className = "section-tile";
+    tile.setAttribute("data-project", projectId);
+    tile.setAttribute("data-section", s.id);
+    tile.innerHTML =
+      '<div class="s-ic">' + esc(s.icon) + '</div>' +
+      '<h4>' + esc(s.title) + '</h4>' +
+      '<div class="s-count">' + count + ' ' + plural(count, ["файл","файла","файлов"]) + '</div>';
+    sections.appendChild(tile);
+  });
+
+  $("projectFilesBlock").style.display = "none";
+  $("sectionFiles").innerHTML = "";
+
+  /* Таблицы этого проекта */
+  const projectTables = TABLES.filter(t => t.project === projectId);
+  const ptBlock = $("projectTablesBlock");
+  const pt = $("projectTables");
+  pt.innerHTML = "";
+  if (projectTables.length){
+    projectTables.forEach(t => pt.appendChild(buildTableCard(t)));
+    $("projectTablesCount").textContent = projectTables.length + " " + plural(projectTables.length, ["таблица","таблицы","таблиц"]);
+    ptBlock.style.display = "";
+  } else {
+    ptBlock.style.display = "none";
+  }
+}
+
+function renderProjectSection(projectId, sectionId){
+  const s = sectionById(sectionId);
+  if (!s) return;
+  const list = FILES.filter(f => f.project === projectId && f.section === sectionId);
+  $("sectionTitle").textContent = s.icon + " " + s.title;
+  $("sectionCount").textContent = list.length + " " + plural(list.length, ["файл","файла","файлов"]);
+  const box = $("sectionFiles");
+  box.innerHTML = "";
+  list.forEach(f => box.appendChild(buildFileItem(f, false)));
+  $("projectFilesBlock").style.display = "";
+  $("projectFilesBlock").scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+function renderSectionPage(sectionId){
+  const s = sectionById(sectionId);
+  if (!s) return;
+  const list = FILES.filter(f => f.section === sectionId);
+  $("sectionPageTitle").textContent = s.icon + " " + s.title;
+  $("sectionPageDesc").textContent = s.desc || "";
+  const box = $("sectionPageFiles");
+  box.innerHTML = "";
+  list.forEach(f => box.appendChild(buildFileItem(f, true)));
+}
+
+/* ---------- навигация ---------- */
+function showPage(pageId){
+  document.querySelectorAll(".page").forEach(p => p.classList.add("hidden"));
+  const page = document.getElementById("page" + pageId.charAt(0).toUpperCase() + pageId.slice(1));
+  if (page) page.classList.remove("hidden");
+}
+function setCrumbs(items){
+  const c = $("crumbs");
+  c.innerHTML = "";
+  items.forEach((it, i) => {
+    if (i > 0){
+      const sep = document.createElement("span");
+      sep.className = "sep"; sep.textContent = "/";
+      c.appendChild(sep);
+    }
+    const el = document.createElement("span");
+    if (it.link){ el.className = "link"; el.textContent = it.text; el.addEventListener("click", it.link); }
+    else { el.className = "current"; el.textContent = it.text; }
+    c.appendChild(el);
+  });
+}
+function setActiveSideLink(sel){
+  document.querySelectorAll(".side-link").forEach(l => l.classList.remove("active"));
+  if (!sel) return;
+  const el = document.querySelector(sel);
+  if (el) el.classList.add("active");
+}
+function closeSidebarMobile(){ $("sidebar").classList.remove("open"); }
+
+function navDashboard(){
+  showPage("dashboard");
+  setActiveSideLink('.side-link[data-nav="dashboard"]');
+  setCrumbs([{text:"Дашборд"}]);
+  closeSidebarMobile();
+}
+function navProject(projectId){
+  const p = projectById(projectId);
+  if (!p) return;
+  showPage("project");
+  renderProjectPage(projectId);
+  setActiveSideLink('.side-link[data-nav="project"][data-project="' + projectId + '"]');
+  setCrumbs([{text:"Дашборд", link:navDashboard}, {text:p.icon + " " + p.title}]);
+  closeSidebarMobile();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+function navSection(sectionId){
+  const s = sectionById(sectionId);
+  if (!s) return;
+  showPage("section");
+  renderSectionPage(sectionId);
+  setActiveSideLink('.side-link[data-nav="section"][data-section="' + sectionId + '"]');
+  setCrumbs([{text:"Дашборд", link:navDashboard}, {text:s.icon + " " + s.title}]);
+  closeSidebarMobile();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+function navTables(){
+  showPage("tables");
+  setActiveSideLink('.side-link[data-nav="tables"]');
+  setCrumbs([{text:"Дашборд", link:navDashboard}, {text:"Онлайн-таблицы"}]);
+  closeSidebarMobile();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+/* ---------- скачивание ---------- */
+function downloadFile(url, name){
+  if (!url){ toast("Ссылка на файл не указана"); return; }
+  toast("Скачивание началось\n" + name);
+  const a = document.createElement("a");
+  a.href = url; a.rel = "noopener"; a.target = "_blank";
+  try { if (url.startsWith(location.origin) || url.startsWith("file:")) a.download = name; } catch(e){}
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+}
+
+/* ---------- делегирование ---------- */
+document.addEventListener("click", e => {
+  const nav = e.target.closest("[data-nav]");
+  if (nav){
+    const t = nav.getAttribute("data-nav");
+    if (t === "dashboard") return navDashboard();
+    if (t === "project")   return navProject(nav.getAttribute("data-project"));
+    if (t === "section")   return navSection(nav.getAttribute("data-section"));
+    if (t === "tables")    return navTables();
+    if (t === "cmd")       return openCmd();
+  }
+  const projCard = e.target.closest(".proj-card");
+  if (projCard) return navProject(projCard.getAttribute("data-project"));
+
+  const secTile = e.target.closest(".section-tile");
+  if (secTile) return renderProjectSection(secTile.getAttribute("data-project"), secTile.getAttribute("data-section"));
+
+  const fileItem = e.target.closest(".file-item, .recent-item");
+  if (fileItem) return downloadFile(fileItem.getAttribute("data-url"), fileItem.getAttribute("data-name"));
+});
+
+/* ---------- command palette ---------- */
+const cmdOverlay = $("cmdOverlay");
+const cmdInput   = $("cmdInput");
+const cmdResults = $("cmdResults");
+
+function openCmd(){
+  cmdOverlay.classList.add("show");
+  cmdInput.value = "";
+  renderCmd("");
+  setTimeout(() => cmdInput.focus(), 30);
+}
+function closeCmd(){ cmdOverlay.classList.remove("show"); }
+
+function renderCmd(q){
+  q = (q || "").toLowerCase().trim();
+  cmdResults.innerHTML = "";
+  const groups = [];
+
+  const navItems = [
+    {ic:"◈", name:"Дашборд",         meta:"Обзор базы",                type:"Раздел", action:() => { closeCmd(); navDashboard(); }},
+    {ic:"▤", name:"Онлайн-таблицы",  meta:TABLES.length + " таблиц",   type:"Раздел", action:() => { closeCmd(); navTables(); }}
+  ];
+  PROJECTS.forEach(p => navItems.push({ic:p.icon, name:p.title, meta:"Проект", type:"Проект", action:() => { closeCmd(); navProject(p.id); }}));
+  SECTIONS.forEach(s => navItems.push({ic:s.icon, name:s.title, meta:"Раздел базы", type:"Раздел", action:() => { closeCmd(); navSection(s.id); }}));
+  const navFiltered = navItems.filter(i => !q || (i.name + " " + i.meta).toLowerCase().includes(q));
+  if (navFiltered.length) groups.push({title:"Навигация", items:navFiltered.slice(0, 8)});
+
+  const filesFiltered = FILES.filter(f => {
+    if (!q) return true;
+    const p = projectById(f.project), s = sectionById(f.section);
+    return (f.name + " " + (p?p.title:"") + " " + (s?s.title:"") + " " + (f.updated||"")).toLowerCase().includes(q);
+  }).slice(0, 12).map(f => {
+    const p = projectById(f.project), s = sectionById(f.section);
+    return {
+      ic:fileIcon(f.name), name:f.name,
+      meta:(p?p.title:"") + " · " + (s?s.title:"") + (f.updated ? " · " + f.updated : ""),
+      type:"Файл", action:() => { closeCmd(); downloadFile(f.url, f.name); }
+    };
+  });
+  if (filesFiltered.length) groups.push({title:"Файлы", items:filesFiltered});
+
+  const tablesFiltered = TABLES.filter(t => {
+    if (!q) return true;
+    return (t.name + " " + (t.description||"")).toLowerCase().includes(q);
+  }).slice(0, 8).map(t => ({
+    ic:"▤", name:t.name, meta:t.description || "", type:"Таблица",
+    action:() => { closeCmd(); window.open(t.url, "_blank", "noopener"); }
+  }));
+  if (tablesFiltered.length) groups.push({title:"Таблицы", items:tablesFiltered});
+
+  if (!groups.length){
+    cmdResults.innerHTML = '<div class="cmd-empty">Ничего не найдено по запросу «' + esc(q) + '»</div>';
     return;
   }
 
-  if (e.target.id === "fmClose")  { closeFilesModal(); return; }
-  if (e.target.id === "btnClear") { clearSearch(); return; }
+  groups.forEach(g => {
+    const gt = document.createElement("div");
+    gt.className = "cmd-group-title";
+    gt.textContent = g.title;
+    cmdResults.appendChild(gt);
+    g.items.forEach((item, i) => {
+      const el = document.createElement("div");
+      el.className = "cmd-item" + (i === 0 ? " active" : "");
+      el.innerHTML =
+        '<div class="ci-ic">' + esc(item.ic) + '</div>' +
+        '<div class="ci-main">' +
+          '<div class="ci-name">' + esc(item.name) + '</div>' +
+          '<div class="ci-meta">' + esc(item.meta) + '</div>' +
+        '</div>' +
+        '<div class="ci-type">' + esc(item.type) + '</div>';
+      el.addEventListener("click", item.action);
+      cmdResults.appendChild(el);
+    });
+  });
+}
 
-  if (e.target.classList && e.target.classList.contains("modal")) {
-    e.target.classList.remove("show");
-    if (e.target.id === "filesModal") currentCategory = null;
-  }
+$("cmdHint").addEventListener("click", openCmd);
+$("menuToggle").addEventListener("click", () => {
+  const sb = $("sidebar");
+  if (sb.classList.contains("open")) closeSidebarMobile(); else sb.classList.add("open");
 });
+cmdOverlay.addEventListener("click", e => { if (e.target === cmdOverlay) closeCmd(); });
+cmdInput.addEventListener("input", () => renderCmd(cmdInput.value));
 
 document.addEventListener("keydown", e => {
-  if (e.key === "Escape"){
-    document.querySelectorAll(".modal.show").forEach(m => m.classList.remove("show"));
-    currentCategory = null;
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k"){
+    e.preventDefault();
+    if (cmdOverlay.classList.contains("show")) closeCmd(); else openCmd();
+    return;
   }
+  if (e.key === "Escape" && cmdOverlay.classList.contains("show")) closeCmd();
 });
 
-els.search.addEventListener("input", renderSearchResults);
-els.fmSearch.addEventListener("input", renderFilesModal);
-
-function clearSearch(){
-  els.search.value = "";
-  renderSearchResults();
-}
-
+/* ---------- toast ---------- */
 let toastTimer = null;
 function toast(s){
-  els.toast.innerHTML = String(s).split("\n").map((line, i) =>
+  const t = $("toast");
+  t.innerHTML = String(s).split("\n").map((line, i) =>
     i === 0 ? "<b>" + esc(line) + "</b>" : esc(line)
   ).join("<br>");
-  els.toast.style.display = "block";
+  t.style.display = "block";
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => { els.toast.style.display = "none"; }, 2600);
+  toastTimer = setTimeout(() => { t.style.display = "none"; }, 2600);
 }
 
+/* ---------- старт ---------- */
 try {
-  render();
+  renderSidebar();
+  renderDashboard();
+  renderTablesPage();
+  navDashboard();
 } catch (err){
   console.error(err);
-  if (els.errbox){
-    els.errbox.className = "errbox";
-    els.errbox.textContent =
-      "Ошибка в данных сайта:\n" + (err && err.message ? err.message : String(err)) +
-      "\n\nПроверьте массивы FILES и TABLES — чаще всего это пропущенная запятая между объектами.";
+  const b = $("errbox");
+  if (b){
+    b.className = "errbox";
+    b.textContent = "Ошибка в данных сайта:\n" + (err && err.message ? err.message : String(err)) +
+      "\n\nПроверьте массивы FILES, TABLES, PROJECTS, SECTIONS.";
   }
 }
-</script>
-<script>
-(function(){
- function sync(){
-  const s=document.getElementById('status');const n=(s?.textContent.match(/\d+/g)||[]);
-  document.getElementById('heroFileCount').textContent=n[0]||0;
-  document.getElementById('heroTableCount').textContent=n[1]||0;
- }
- setTimeout(sync,80);setTimeout(sync,300);
-})();
-</script>
 
-<script>
 /* ============================================================
-   ЗАЩИТА ПАРОЛЕМ · запоминание на 7 дней · только латиница
-   ============================================================
-   Пароль по умолчанию: ADTS
-   Хранится только его SHA-256 хеш — сам пароль в файле
-   не встречается в открытом виде.
-
-   Как сменить пароль:
-   1. Прогони новый пароль через SHA-256-калькулятор
-      (например https://emn178.github.io/online-tools/sha256.html)
-   2. Замени значение PASSWORD_HASH ниже на полученный хеш.
+   ЗАЩИТА ПАРОЛЕМ · ADTS · 7 дней · только латиница
    ============================================================ */
-
 (function(){
   "use strict";
-
-  /* SHA-256 от пароля "ADTS" */
   const PASSWORD_HASH = "702c28db28e46fe80d60a61eb6447944a280755354e8420db33a8f35fe004f32";
-
   const STORAGE_KEY   = "pd_unlock_v1";
   const REMEMBER_DAYS = 7;
   const REMEMBER_MS   = REMEMBER_DAYS * 24 * 60 * 60 * 1000;
@@ -997,79 +1016,48 @@ try {
   const errBox      = document.getElementById("lockErr");
   const logoutBtn   = document.getElementById("logoutBtn");
 
-  /* --- SHA-256 через Web Crypto API --- */
   async function sha256(str){
     const buf = new TextEncoder().encode(str);
     const hash = await crypto.subtle.digest("SHA-256", buf);
-    return Array.from(new Uint8Array(hash))
-      .map(b => b.toString(16).padStart(2, "0"))
-      .join("");
+    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,"0")).join("");
   }
-
   function isUnlocked(){
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (!raw) return false;
-      const data = JSON.parse(raw);
-      if (!data || !data.expires) return false;
-      if (Date.now() > data.expires){
-        localStorage.removeItem(STORAGE_KEY);
-        return false;
-      }
-      return data.hash === PASSWORD_HASH;
-    } catch(e){
-      return false;
-    }
+      const d = JSON.parse(raw);
+      if (!d || !d.expires) return false;
+      if (Date.now() > d.expires){ localStorage.removeItem(STORAGE_KEY); return false; }
+      return d.hash === PASSWORD_HASH;
+    } catch(e){ return false; }
   }
-
   function unlock(remember){
     if (remember){
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify({
-          hash: PASSWORD_HASH,
-          expires: Date.now() + REMEMBER_MS
-        }));
-      } catch(e){ /* приватный режим */ }
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify({hash:PASSWORD_HASH, expires:Date.now()+REMEMBER_MS})); } catch(e){}
     }
     lockScreen.classList.add("hidden");
     if (logoutBtn) logoutBtn.classList.add("show");
-    setTimeout(() => {
-      lockScreen.style.display = "none";
-      if (input) input.value = "";
-    }, 500);
+    setTimeout(() => { lockScreen.style.display = "none"; }, 500);
   }
-
   function lock(){
     try { localStorage.removeItem(STORAGE_KEY); } catch(e){}
     lockScreen.style.display = "";
     lockScreen.classList.remove("hidden");
     if (logoutBtn) logoutBtn.classList.remove("show");
-    if (input){
-      input.value = "";
-      input.focus();
-    }
+    if (input){ input.value = ""; input.focus(); }
   }
-
   function showError(msg){
     errBox.textContent = msg;
     errBox.classList.add("show");
     setTimeout(() => errBox.classList.remove("show"), 2600);
   }
-
   async function tryEnter(){
-    const val = (input.value || "").trim();
-    if (!val){
-      showError("Введите пароль");
-      input.focus();
-      return;
-    }
+    const v = (input.value || "").trim();
+    if (!v){ showError("Введите пароль"); input.focus(); return; }
     btnEnter.disabled = true;
     btnEnter.textContent = "Проверка…";
-
     await new Promise(r => setTimeout(r, 350));
-
-    const hash = await sha256(val);
-
+    const hash = await sha256(v);
     if (hash === PASSWORD_HASH){
       unlock(chkRemember.checked);
     } else {
@@ -1080,61 +1068,36 @@ try {
       btnEnter.textContent = "Войти";
     }
   }
-
   if (btnEnter) btnEnter.addEventListener("click", tryEnter);
-
   if (input){
-    /* Enter — попытка входа */
     input.addEventListener("keydown", e => {
-      if (e.key === "Enter"){
+      if (e.key === "Enter"){ e.preventDefault(); tryEnter(); return; }
+      if (e.key.length === 1 && !/[A-Za-z0-9]/.test(e.key)){
         e.preventDefault();
-        tryEnter();
-        return;
-      }
-      /* Жёстко пропускаем только латинские буквы и цифры
-         (нельзя ввести русские буквы, пробелы, знаки) */
-      if (e.key.length === 1){
-        if (!/[A-Za-z0-9]/.test(e.key)){
-          e.preventDefault();
-          input.classList.add("denied");
-          setTimeout(() => input.classList.remove("denied"), 180);
-        }
+        input.classList.add("denied");
+        setTimeout(() => input.classList.remove("denied"), 180);
       }
     });
-
-    /* На всякий случай вычищаем всё лишнее и при вставке,
-       и при событиях IME/автозамены */
-    function sanitizeInput(){
-      const clean = input.value.replace(/[^A-Za-z0-9]/g, "");
-      if (clean !== input.value) input.value = clean;
-    }
-    input.addEventListener("input", sanitizeInput);
+    function sanitize(){ const c = input.value.replace(/[^A-Za-z0-9]/g,""); if (c !== input.value) input.value = c; }
+    input.addEventListener("input", sanitize);
     input.addEventListener("paste", e => {
       e.preventDefault();
-      const text = (e.clipboardData || window.clipboardData).getData("text") || "";
-      input.value = text.replace(/[^A-Za-z0-9]/g, "").slice(0, 32);
+      const t = (e.clipboardData || window.clipboardData).getData("text") || "";
+      input.value = t.replace(/[^A-Za-z0-9]/g,"").slice(0, 32);
     });
   }
-
   if (btnToggle){
     btnToggle.addEventListener("click", () => {
-      if (input.type === "password"){
-        input.type = "text";
-        btnToggle.textContent = "🙈";
-      } else {
-        input.type = "password";
-        btnToggle.textContent = "👁";
-      }
+      if (input.type === "password"){ input.type = "text"; btnToggle.textContent = "🙈"; }
+      else { input.type = "password"; btnToggle.textContent = "👁"; }
       input.focus();
     });
   }
-
   if (logoutBtn){
     logoutBtn.addEventListener("click", () => {
       if (confirm("Выйти и заблокировать доступ?")) lock();
     });
   }
-
   if (isUnlocked()){
     lockScreen.style.display = "none";
     if (logoutBtn) logoutBtn.classList.add("show");
