@@ -174,7 +174,7 @@ body:after{content:"";position:fixed;inset:0;z-index:-4;opacity:.22;pointer-even
 .errbox{margin:20px 0;padding:16px;background:#34131a;color:#fecaca;border:1px solid #7f1d1d;border-radius:12px;font-family:monospace;font-size:12px;white-space:pre-wrap}
 
 /* ============================================================
-   ЭКРАН БЛОКИРОВКИ
+                         ЭКРАН БЛОКИРОВКИ
    ============================================================ */
 #lockScreen{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:24px;background:
     radial-gradient(circle at 50% -15%,rgba(77,141,255,.22),transparent 35%),
@@ -427,23 +427,22 @@ body:after{content:"";position:fixed;inset:0;z-index:-4;opacity:.22;pointer-even
 
 <script>
 /* ============================================================
-   ДАННЫЕ САЙТА
+                         ДАННЫЕ САЙТА
    ------------------------------------------------------------
-   Файлы и проекты — точно как в версии для подрядчиков.
-   Таблицы привязаны к проектам (project).
+   
    ============================================================ */
 
 const PROJECTS = [
-  {id:"emm",       title:"ЕММ",              icon:"📦", desc:"Документация и материалы по проекту ЕММ"},
+  {id:"emm",       title:"ЕММ+ТО",           icon:"📦", desc:"Документация и материалы по проекту ЕММ+ТО"},
   {id:"dp_pch",    title:"ДП_ПЧ",            icon:"📡", desc:"Документация по проекту ДП_ПЧ"},
   {id:"dp_pch_do", title:"ДП_ПЧ_ДО",         icon:"📡", desc:"Документация по проекту ДП_ПЧ_ДО"},
   {id:"lenta",     title:"Лента",            icon:"🏬", desc:"Проект торговой сети Лента"},
   {id:"metro",     title:"Метро",            icon:"🚇", desc:"Проект Метро"},
   {id:"magnit",    title:"Магнит Аптеки",    icon:"💊", desc:"Проект Магнит Аптеки"},
   {id:"fasad",     title:"Фасадные экраны",  icon:"🏢", desc:"Проект Фасадные экраны"},
-  {id:"shelf",     title:"Шелфбаннеры",       icon:"🪧", desc:"Проект Шелфаннеры"},
+  {id:"shelf",     title:"Шелфбаннеры",      icon:"🪧", desc:"Проект Шелфаннеры"},
   {id:"fasol",     title:"Фасоль",           icon:"🌰", desc:"Проект Фасоль"},
-  {id:"other",     title:"Прочее",        icon:"📂", desc:"Прочие таблицы и материалы"}
+  {id:"other",     title:"Прочее",           icon:"📂", desc:"Прочие таблицы и материалы"}
 ];
 
 const SECTIONS = [
@@ -453,7 +452,7 @@ const SECTIONS = [
   {id:"guides",   title:"Инструкции",          icon:"🎓", desc:"Инструкции для менеджеров и подрядчиков"}
 ];
 
-/* ---------- ФАЙЛЫ (как в базе для подрядчиков, но с section) ---------- */
+/* ---------- ФАЙЛЫ ---------- */
 const FILES = [
   /* ========== ЕММ ========== */
   {name:"ЕММ (вторая).pdf",                                                          project:"emm",       section:"tz",       url:"https://disk.360.yandex.ru/i/WlZcpmW3xMcHSA?download=1", updated:"16.09.2026"},
@@ -522,7 +521,7 @@ const FILES = [
   {name:"Акт Фасоль.docx",                                                           project:"fasol",     section:"acts",     url:"https://disk.360.yandex.ru/i/XBgnewWcIypQ8A?download=1", updated:"17.09.2026"}
 ];
 
-/* ---------- ТАБЛИЦЫ (все 15, привязаны к проектам) ---------- */
+/* ---------- ТАБЛИЦЫ ---------- */
 const TABLES = [
   {name:"ММ/МК ДП_ПЧ",            project:"dp_pch",    description:"Таблица по проекту ДП_ПЧ",         url:"https://docs.google.com/spreadsheets/d/1a65W34zXXFRnvY-7cKw5wO7SIzNmUzMNn_VPjGmQLMw/edit?usp=sharing"},
   {name:"ДП_ПЧ_ДО",               project:"dp_pch_do", description:"Таблица по проекту ДП_ПЧ_ДО",      url:"https://docs.google.com/spreadsheets/d/1vNnodLKfv02mGDDwSllVEWSLT228eRQVA2j4CD29VT0/edit?usp=sharing"},
@@ -540,10 +539,6 @@ const TABLES = [
   {name:"Метро",                  project:"metro",     description:"Таблица по проекту Метро",         url:"https://docs.google.com/spreadsheets/d/1iTWzQutDr0e_dgOKW0oG1s4OeaRpyAOxlJjbIJVxJdk/edit?usp=sharing"},
   {name:"Таблица Подрядчики",     project:"dp_pch",    description:"Таблица по подрядчикам",           url:"https://docs.google.com/spreadsheets/d/18PZsnwJIdLvULAQOaSBdOQ4mSenNvOr5f2YrQ22aJy0/edit?usp=sharing"}
 ];
-
-/* ============================================================
-   НИЖЕ НИЧЕГО МЕНЯТЬ НЕ НУЖНО
-   ============================================================ */
 
 function esc(s){
   return String(s == null ? "" : s).replace(/[&<>"']/g, m => ({
@@ -783,7 +778,7 @@ function renderSectionPage(sectionId){
   list.forEach(f => box.appendChild(buildFileItem(f, true)));
 }
 
-/* ---------- навигация ---------- */
+/* ---------- Навигация ---------- */
 function showPage(pageId){
   document.querySelectorAll(".page").forEach(p => p.classList.add("hidden"));
   const page = document.getElementById("page" + pageId.charAt(0).toUpperCase() + pageId.slice(1));
@@ -846,7 +841,7 @@ function navTables(){
   window.scrollTo({top:0, behavior:"smooth"});
 }
 
-/* ---------- скачивание ---------- */
+/* ---------- Скачивание ---------- */
 function downloadFile(url, name){
   if (!url){ toast("Ссылка на файл не указана"); return; }
   toast("Скачивание началось\n" + name);
@@ -856,7 +851,7 @@ function downloadFile(url, name){
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
 }
 
-/* ---------- делегирование ---------- */
+/* ---------- Делегирование ---------- */
 document.addEventListener("click", e => {
   const nav = e.target.closest("[data-nav]");
   if (nav){
@@ -982,7 +977,7 @@ function toast(s){
   toastTimer = setTimeout(() => { t.style.display = "none"; }, 2600);
 }
 
-/* ---------- старт ---------- */
+/* ---------- Старт ---------- */
 try {
   renderSidebar();
   renderDashboard();
@@ -999,7 +994,7 @@ try {
 }
 
 /* ============================================================
-   ЗАЩИТА ПАРОЛЕМ · ADTS · 7 дней · только латиница
+                          ЗАЩИТА ПАРОЛЕМ 
    ============================================================ */
 (function(){
   "use strict";
