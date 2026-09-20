@@ -15,7 +15,7 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;font-variant-emoji:emoji;overflow-x:hidden}
 body:before{content:"";position:fixed;inset:0;z-index:-5;background:
  radial-gradient(circle at 50% -15%,rgba(77,141,255,.19),transparent 33%),
  radial-gradient(circle at 100% 45%,rgba(138,98,255,.11),transparent 28%),
@@ -125,6 +125,25 @@ body:after{content:"";position:fixed;inset:0;z-index:-4;opacity:.22;pointer-even
 .table-card .t-open{font-size:10.5px;font-weight:700;color:#a8c4ff;padding:8px 11px;border-radius:9px;background:rgba(77,141,255,.09);border:1px solid rgba(77,141,255,.18);transition:.2s;white-space:nowrap}
 .table-card:hover .t-open{background:var(--blue);color:#fff}
 
+/* ---------- VIDEOS GRID ---------- */
+.videos{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.video-card{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,rgba(18,26,39,.9),rgba(10,15,23,.9));cursor:pointer;transition:.35s cubic-bezier(.2,.8,.2,1);text-decoration:none;color:inherit;display:flex;flex-direction:column}
+.video-card:hover{transform:translateY(-6px);border-color:rgba(91,145,255,.42);box-shadow:var(--shadow)}
+.video-thumb{position:relative;width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#1a2540,#0f1522);overflow:hidden;display:grid;place-items:center}
+.video-thumb:before{content:"";position:absolute;inset:0;background:
+  radial-gradient(circle at 25% 30%,rgba(77,141,255,.25),transparent 55%),
+  radial-gradient(circle at 75% 70%,rgba(138,98,255,.22),transparent 55%);
+  opacity:.85;transition:.4s}
+.video-card:hover .video-thumb:before{opacity:1;transform:scale(1.1)}
+.video-play{position:relative;z-index:2;width:60px;height:60px;border-radius:16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(12px);display:grid;place-items:center;font-size:24px;color:#fff;box-shadow:0 12px 40px rgba(0,0,0,.4);transition:.35s}
+.video-play:after{content:"↗";font-weight:800;font-size:22px;line-height:1}
+.video-card:hover .video-play{transform:scale(1.12);background:linear-gradient(135deg,rgba(77,141,255,.9),rgba(138,98,255,.9));border-color:transparent;box-shadow:0 16px 50px rgba(77,141,255,.6)}
+.video-duration{position:absolute;right:10px;bottom:10px;z-index:2;font-size:10px;font-weight:700;color:#fff;background:rgba(0,0,0,.65);padding:4px 8px;border-radius:6px;letter-spacing:.03em}
+.video-meta{padding:14px 16px 16px;display:flex;flex-direction:column;gap:5px;flex:1}
+.video-meta b{font-size:12.5px;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.video-meta .v-desc{font-size:10.5px;color:#718096;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.video-meta .v-project{font-size:10px;color:#a9c5ff;font-weight:700;margin-top:2px}
+
 /* ---------- SECTIONS ---------- */
 .sections{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:18px}
 .section-tile{padding:18px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(145deg,rgba(18,26,39,.85),rgba(10,15,23,.85));cursor:pointer;transition:.28s;position:relative;overflow:hidden}
@@ -174,7 +193,7 @@ body:after{content:"";position:fixed;inset:0;z-index:-4;opacity:.22;pointer-even
 .errbox{margin:20px 0;padding:16px;background:#34131a;color:#fecaca;border:1px solid #7f1d1d;border-radius:12px;font-family:monospace;font-size:12px;white-space:pre-wrap}
 
 /* ============================================================
-                         ЭКРАН БЛОКИРОВКИ
+   ЭКРАН БЛОКИРОВКИ
    ============================================================ */
 #lockScreen{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:24px;background:
     radial-gradient(circle at 50% -15%,rgba(77,141,255,.22),transparent 35%),
@@ -212,6 +231,24 @@ body:after{content:"";position:fixed;inset:0;z-index:-4;opacity:.22;pointer-even
 #lockScreen .lock-footer{margin-top:22px;text-align:center;font-size:10px;color:#525d70;letter-spacing:.05em}
 
 .menu-toggle{display:none;width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.035);color:#b6c2d4;font-size:18px;cursor:pointer}
+
+/* ---------- ПРИНУДИТЕЛЬНО ЦВЕТНЫЕ ЭМОДЗИ ---------- */
+.proj-card .p-ic,
+.section-tile .s-ic,
+.side-link .ic,
+.crumbs,
+.fi-icon,
+.recent-item .ri-icon,
+.cmd-item .ci-ic,
+.cmd-input-wrap .ic,
+.lock-logo,
+.lock-toggle,
+#logoutBtn,
+.menu-toggle,
+.table-card .t-sub,
+.video-meta .v-project {
+  font-variant-emoji: emoji;
+}
 
 @media(max-width:1100px){.metrics{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:900px){
@@ -290,6 +327,7 @@ body:after{content:"";position:fixed;inset:0;z-index:-4;opacity:.22;pointer-even
     <div class="side-group">
       <div class="side-group-title">Ресурсы</div>
       <div class="side-link" data-nav="tables"><span class="ic">▤</span><span class="nm">Онлайн-таблицы</span><span class="ct" id="sideTableCount">0</span></div>
+      <div class="side-link" data-nav="videos"><span class="ic">🎬</span><span class="nm">Видеоинструкции</span><span class="ct" id="sideVideoCount">0</span></div>
     </div>
 
     <div class="side-footer">
@@ -322,10 +360,11 @@ body:after{content:"";position:fixed;inset:0;z-index:-4;opacity:.22;pointer-even
       <div class="page-head">
         <div class="kicker">PROJECT KNOWLEDGE CENTER · 2026</div>
         <h1>Вся проектная работа.<br>В одном пространстве.</h1>
-        <p>Единая точка доступа к технической документации, программному обеспечению, актам, инструкциям и рабочим таблицам проектного отдела.</p>
+        <p>Единая точка доступа к технической документации, программному обеспечению, актам, инструкциям, видео и рабочим таблицам проектного отдела.</p>
         <div class="metrics">
           <div class="metric"><strong id="mFiles">0</strong><small>Файлов в базе</small></div>
           <div class="metric"><strong id="mTables">0</strong><small>Онлайн-таблиц</small></div>
+          <div class="metric"><strong id="mVideos">0</strong><small>Видеоинструкций</small></div>
           <div class="metric"><strong>24/7</strong><small>Доступ к материалам</small></div>
         </div>
       </div>
@@ -352,6 +391,14 @@ body:after{content:"";position:fixed;inset:0;z-index:-4;opacity:.22;pointer-even
           <span class="muted">Открываются в браузере</span>
         </div>
         <div class="tables" id="tablesGrid"></div>
+      </div>
+
+      <div class="block">
+        <div class="block-title">
+          <h2>Видеоинструкции</h2>
+          <span class="muted">Открываются на Яндекс.Диске</span>
+        </div>
+        <div class="videos" id="videosGrid"></div>
       </div>
     </div>
 
@@ -386,6 +433,14 @@ body:after{content:"";position:fixed;inset:0;z-index:-4;opacity:.22;pointer-even
         </div>
         <div class="tables" id="projectTables"></div>
       </div>
+
+      <div class="block" id="projectVideosBlock" style="display:none">
+        <div class="block-title">
+          <h2>Видеоинструкции проекта</h2>
+          <span class="muted" id="projectVideosCount"></span>
+        </div>
+        <div class="videos" id="projectVideos"></div>
+      </div>
     </div>
 
     <!-- TABLES PAGE -->
@@ -398,6 +453,16 @@ body:after{content:"";position:fixed;inset:0;z-index:-4;opacity:.22;pointer-even
       <div class="tables" id="allTablesGrid"></div>
     </div>
 
+    <!-- VIDEOS PAGE -->
+    <div class="page hidden" id="pageVideos">
+      <div class="page-head">
+        <div class="kicker">РЕСУРСЫ</div>
+        <h1>Видеоинструкции</h1>
+        <p>Все видеогайды и обучающие материалы проектного отдела. Клик по карточке откроет видео на Яндекс.Диске в новой вкладке.</p>
+      </div>
+      <div class="videos" id="allVideosGrid"></div>
+    </div>
+
     <!-- SECTION PAGE -->
     <div class="page hidden" id="pageSection">
       <div class="page-head">
@@ -406,6 +471,7 @@ body:after{content:"";position:fixed;inset:0;z-index:-4;opacity:.22;pointer-even
         <p id="sectionPageDesc"></p>
       </div>
       <div class="file-list" id="sectionPageFiles"></div>
+      <div class="videos" id="sectionPageVideos" style="margin-top:16px"></div>
     </div>
 
   </div>
@@ -416,7 +482,7 @@ body:after{content:"";position:fixed;inset:0;z-index:-4;opacity:.22;pointer-even
   <div class="cmd-box">
     <div class="cmd-input-wrap">
       <span class="ic">⌕</span>
-      <input id="cmdInput" placeholder="Поиск по файлам, проектам, таблицам…" autocomplete="off">
+      <input id="cmdInput" placeholder="Поиск по файлам, проектам, таблицам, видео…" autocomplete="off">
       <span class="esc-hint">ESC</span>
     </div>
     <div class="cmd-results" id="cmdResults"></div>
@@ -427,13 +493,11 @@ body:after{content:"";position:fixed;inset:0;z-index:-4;opacity:.22;pointer-even
 
 <script>
 /* ============================================================
-                         ДАННЫЕ САЙТА
-   ------------------------------------------------------------
-   
+   ДАННЫЕ САЙТА
    ============================================================ */
 
 const PROJECTS = [
-  {id:"emm",       title:"ЕММ+ТО",           icon:"📦", desc:"Документация и материалы по проекту ЕММ+ТО"},
+  {id:"emm",       title:"ЕММ",              icon:"📦", desc:"Документация и материалы по проекту ЕММ"},
   {id:"dp_pch",    title:"ДП_ПЧ",            icon:"📡", desc:"Документация по проекту ДП_ПЧ"},
   {id:"dp_pch_do", title:"ДП_ПЧ_ДО",         icon:"📡", desc:"Документация по проекту ДП_ПЧ_ДО"},
   {id:"lenta",     title:"Лента",            icon:"🏬", desc:"Проект торговой сети Лента"},
@@ -442,19 +506,19 @@ const PROJECTS = [
   {id:"fasad",     title:"Фасадные экраны",  icon:"🏢", desc:"Проект Фасадные экраны"},
   {id:"shelf",     title:"Шелфбаннеры",      icon:"🪧", desc:"Проект Шелфаннеры"},
   {id:"fasol",     title:"Фасоль",           icon:"🌰", desc:"Проект Фасоль"},
-  {id:"other",     title:"Прочее",           icon:"📂", desc:"Прочие таблицы и материалы"}
+  {id:"other",     title:"Прочее",           icon:"📂", desc:"Прочие материалы"}
 ];
 
 const SECTIONS = [
   {id:"tz",       title:"Технические задания", icon:"📋", desc:"ТЗ и технические документы"},
   {id:"software", title:"Прошивки",            icon:"💿", desc:"Прошивки и программное обеспечение"},
   {id:"acts",     title:"Акты",                icon:"📑", desc:"Шаблоны и акты выполненных работ"},
-  {id:"guides",   title:"Инструкции",          icon:"🎓", desc:"Инструкции для менеджеров и подрядчиков"}
+  {id:"guides",   title:"Инструкции",          icon:"🎓", desc:"Инструкции для менеджеров и подрядчиков"},
+  {id:"video",    title:"Видеоинструкции",     icon:"🎬", desc:"Видеогайды и обучающие материалы"}
 ];
 
 /* ---------- ФАЙЛЫ ---------- */
 const FILES = [
-  /* ========== ЕММ ========== */
   {name:"ЕММ (вторая).pdf",                                                          project:"emm",       section:"tz",       url:"https://disk.360.yandex.ru/i/WlZcpmW3xMcHSA?download=1", updated:"16.09.2026"},
   {name:"Логин и пароль от ЕММ.txt",                                                 project:"emm",       section:"tz",       url:"https://disk.360.yandex.ru/i/WlZcpmW3xMcHSA?download=1", updated:"16.09.2026"},
   {name:"ТЗ по установке ЕММ (первая).pdf",                                          project:"emm",       section:"tz",       url:"https://disk.360.yandex.ru/i/cKIEMcyDSoImgQ?download=1", updated:"16.09.2026"},
@@ -465,7 +529,6 @@ const FILES = [
   {name:"Акт осмотра оборудования.pdf",                                              project:"emm",       section:"acts",     url:"https://disk.360.yandex.ru/i/rTLiBFtxxBn6ug?download=1", updated:"17.09.2026"},
   {name:"Акт технического заключения о неисправности оборудования.pdf",              project:"emm",       section:"acts",     url:"https://disk.360.yandex.ru/i/MQWzAjHBcqIgvw?download=1", updated:"17.09.2026"},
 
-  /* ========== ДП_ПЧ ========== */
   {name:"ТЗ по проекту ДП_ПЧ в ТКШ V13.pdf",                                         project:"dp_pch",    section:"tz",       url:"https://disk.360.yandex.ru/i/G7TH_CLtwZHs_w?download=1", updated:"15.09.2026"},
   {name:"ТЗ по проекту ДП_ПЧ в ЩМ V4.pdf",                                          project:"dp_pch",    section:"tz",       url:"https://disk.360.yandex.ru/i/BTcmRsMd6hPGqw?download=1", updated:"15.09.2026"},
   {name:"Пример ФО для проектов ДП_ПЧ/ДП_ПЧ_ДО.pdf",                                project:"dp_pch",    section:"tz",       url:"https://disk.360.yandex.ru/i/ALz1ysyTxkiPKw?download=1", updated:"15.09.2026"},
@@ -480,41 +543,34 @@ const FILES = [
   {name:"Акт типовые проблемы ТТ ДП_ПЧ.docx",                                        project:"dp_pch",    section:"acts",     url:"https://disk.360.yandex.ru/i/fhniV4_g9uyOAg?download=1", updated:"17.09.2026"},
   {name:"Акт технического заключения о неисправности оборудования.pdf",              project:"dp_pch",    section:"acts",     url:"https://disk.360.yandex.ru/i/MQWzAjHBcqIgvw?download=1", updated:"17.09.2026"},
 
-  /* ========== ДП_ПЧ_ДО ========== */
   {name:"Пример ФО для проектов ДП_ПЧ/ДП_ПЧ_ДО.pdf",                                project:"dp_pch_do", section:"tz",       url:"https://disk.360.yandex.ru/i/ALz1ysyTxkiPKw?download=1", updated:"15.09.2026"},
   {name:"Cubic для МП х32",                                                          project:"dp_pch_do", section:"software", url:"https://disk.360.yandex.ru/d/s-5bdx0gknqahA?download=1", size:"31 МБ", updated:"15.09.2026"},
   {name:"Cubic для МП х64",                                                          project:"dp_pch_do", section:"software", url:"https://disk.360.yandex.ru/d/vcTSw1BPkrhUEg?download=1", size:"31 МБ", updated:"15.09.2026"},
   {name:"Акт приема-передачи давальческого оборудования ДП_ПЧ_ДО.docx",              project:"dp_pch_do", section:"acts",     url:"https://disk.360.yandex.ru/i/rL3snTad5UrzjA?download=1", updated:"17.09.2026"},
   {name:"Акт технического заключения о неисправности оборудования.pdf",              project:"dp_pch_do", section:"acts",     url:"https://disk.360.yandex.ru/i/MQWzAjHBcqIgvw?download=1", updated:"17.09.2026"},
-  {name:"Инструкция для новичков по проекту ДП_ПЧ_ДО.docx",                          project:"other", section:"guides",   url:"https://disk.360.yandex.ru/i/Sbil02_kDsD_6A?download=1", updated:"16.09.2026"},
+  {name:"Инструкция для новичков по проекту ДП_ПЧ_ДО.docx",                          project:"other",     section:"guides",   url:"https://disk.360.yandex.ru/i/Sbil02_kDsD_6A?download=1", updated:"16.09.2026"},
 
-  /* ========== ЛЕНТА ========== */
   {name:"ТЗ по проекту Лента СМ 43.pdf",                                             project:"lenta",     section:"tz",       url:"https://disk.360.yandex.ru/i/ekQb9yEdSscQJg?download=1", updated:"15.09.2026"},
   {name:"ТЗ по проекту Лента ГМ 50.pdf",                                             project:"lenta",     section:"tz",       url:"https://disk.360.yandex.ru/i/GRgiRi1O-mQdYQ?download=1", updated:"15.09.2026"},
   {name:"Акт по Ленте.docx",                                                         project:"lenta",     section:"acts",     url:"https://disk.360.yandex.ru/i/s0NrBogv75Fj_Q?download=1", updated:"17.09.2026"},
   {name:"Акт срыва монтажа Лента.docx",                                              project:"lenta",     section:"acts",     url:"https://disk.360.yandex.ru/i/QH1HH0CrxbHsNA?download=1", updated:"17.09.2026"},
   {name:"Акт АВР ПАО Вымпелком",                                                     project:"lenta",     section:"acts",     url:"https://disk.360.yandex.ru/i/cRHnrXU6e2lunQ?download=1", updated:"17.09.2026"},
 
-  /* ========== МЕТРО ========== */
   {name:"ТЗ по проекту ГМ Метро 32 V2.pdf",                                          project:"metro",     section:"tz",       url:"https://disk.360.yandex.ru/i/6PYHcPPR5u4dXw?download=1", updated:"15.09.2026"},
   {name:"Акт приема-передачи Метро.docx",                                            project:"metro",     section:"acts",     url:"https://disk.360.yandex.ru/i/R9TxUKgpJ3jp4g?download=1", updated:"17.09.2026"},
   {name:"Акт установки инвентаря МЕТРО.docx",                                        project:"metro",     section:"acts",     url:"https://disk.360.yandex.ru/i/6kANC-7cj_0bKg?download=1", updated:"17.09.2026"},
   {name:"Акт АВР ПАО Вымпелком",                                                     project:"metro",     section:"acts",     url:"https://disk.360.yandex.ru/i/cRHnrXU6e2lunQ?download=1", updated:"17.09.2026"},
 
-  /* ========== МАГНИТ АПТЕКИ ========== */
   {name:"ТЗ по проекту Магнит Аптеки.pdf",                                           project:"magnit",    section:"tz",       url:"https://disk.360.yandex.ru/i/p4y9jy5zSxp6OQ?download=1", updated:"15.09.2026"},
   {name:"Cubic 7.7.0 apax для ДП в Магнит Аптеках",                                  project:"magnit",    section:"software", url:"https://disk.360.yandex.ru/d/4Yjx0rLtAABLiw?download=1", size:"32 МБ", updated:"15.09.2026"},
 
-  /* ========== ФАСАДНЫЕ ЭКРАНЫ ========== */
   {name:"ТЗ по проекту Фасадные экраны(V6).pdf",                                     project:"fasad",     section:"tz",       url:"https://disk.360.yandex.ru/i/lgZkruPjxKBC8A?download=1", updated:"15.09.2026"},
   {name:"Акт обследования точки Фасадники.docx",                                    project:"fasad",     section:"acts",     url:"https://disk.360.yandex.ru/i/GMsWhnmc_lkIOA?download=1", updated:"17.09.2026"},
   {name:"Акт приема системы в эксплуатацию Фасадники.docx",                          project:"fasad",     section:"acts",     url:"https://disk.360.yandex.ru/i/xOsyMq-_ruvMJw?download=1", updated:"17.09.2026"},
 
-  /* ========== ШЕЛФБАННЕРЫ ========== */
-  {name:"ТЗ по проекту Шелфбаннеры(V6).pdf",                                         project:"shelf",     section:"tz",       url:"https://disk.360.yandex.ru/i/2eFme6CEUnTgpQ?download=1", updated:"19.09.2026"},
+  {name:"ТЗ по проекту Шелфбаннеры(V5).pdf",                                         project:"shelf",     section:"tz",       url:"https://disk.360.yandex.ru/i/mpYa5BP0b1M3DA?download=1", updated:"15.09.2026"},
   {name:"Акт приема системы в эксплуатацию Шелфбаннеры.docx",                        project:"shelf",     section:"acts",     url:"https://disk.360.yandex.ru/i/d0tcLHvmmLZouw?download=1", updated:"17.09.2026"},
 
-  /* ========== ФАСОЛЬ ========== */
   {name:"ТЗ по проекту Фасоль.pdf",                                                  project:"fasol",     section:"tz",       url:"https://disk.360.yandex.ru/i/NQ_Uv7MVijUkBQ?download=1", updated:"15.09.2026"},
   {name:"Акт ТН Фасоль 32 диагональ.pdf",                                            project:"fasol",     section:"acts",     url:"https://disk.360.yandex.ru/i/GHxahqDaVUC6Rg?download=1", updated:"17.09.2026"},
   {name:"Акт ТН Фасоль 43 диагональ.pdf",                                            project:"fasol",     section:"acts",     url:"https://disk.360.yandex.ru/i/EZKhQPGEG-72Ww?download=1", updated:"17.09.2026"},
@@ -527,10 +583,10 @@ const TABLES = [
   {name:"ДП_ПЧ_ДО",               project:"dp_pch_do", description:"Таблица по проекту ДП_ПЧ_ДО",      url:"https://docs.google.com/spreadsheets/d/1vNnodLKfv02mGDDwSllVEWSLT228eRQVA2j4CD29VT0/edit?usp=sharing"},
   {name:"Шелфбаннеры",            project:"shelf",     description:"Таблица по проекту ШБ",            url:"https://docs.google.com/spreadsheets/d/16wHsiEwpaVCRsgyihnwRXZd-3JJNP1BLOLKgXxTP7Rc/edit?usp=sharing"},
   {name:"Магнит аптеки",          project:"magnit",    description:"Таблица по проекту МА",            url:"https://docs.google.com/spreadsheets/d/1NDfuWojZliMcWJAoezmx8W7DiBHzLR_gTiH-XxH4EAQ/edit?usp=sharing"},
-  {name:"Карточки проектов",      project:"other",     description:"Таблица с карточками проектов",  url:"https://docs.google.com/spreadsheets/d/1CWIuah_ERjv4H_jq6yN1H3ur5OXaCKc2zJ95b3g3--0/edit?usp=sharing"},
-  {name:"Календарь",              project:"other",     description:"Календарь выходов",              url:"https://docs.google.com/spreadsheets/d/1okivQWieQDGZ0qPALgHFksF-mara8FVB59IKZYuPspE/edit?usp=sharing"},
-  {name:"Поиск подрядчиков",      project:"other",     description:"Таблица по поиску подрядчиков",  url:"https://docs.google.com/spreadsheets/d/1MQJAk2Rcuxy8iaXNDtM9JWvFTXznDumnVbOzZO2iEdY/edit?usp=sharing"},
-  {name:"Калькулятор ТО",         project:"other",     description:"Таблица с калькулятором ТО",     url:"https://docs.google.com/spreadsheets/d/1dhQkqFEo8TSfkqjed2B0ig6ejrd-hEKJvrU2Y0dWmr8/edit?gid=483175244#gid=483175244"},
+  {name:"Карточки проектов",      project:"other",     description:"Таблица с карточками проектов",    url:"https://docs.google.com/spreadsheets/d/1CWIuah_ERjv4H_jq6yN1H3ur5OXaCKc2zJ95b3g3--0/edit?usp=sharing"},
+  {name:"Календарь",              project:"other",     description:"Календарь выходов",                url:"https://docs.google.com/spreadsheets/d/1okivQWieQDGZ0qPALgHFksF-mara8FVB59IKZYuPspE/edit?usp=sharing"},
+  {name:"Поиск подрядчиков",      project:"other",     description:"Таблица по поиску подрядчиков",    url:"https://docs.google.com/spreadsheets/d/1MQJAk2Rcuxy8iaXNDtM9JWvFTXznDumnVbOzZO2iEdY/edit?usp=sharing"},
+  {name:"Калькулятор ТО",         project:"other",     description:"Таблица с калькулятором ТО",       url:"https://docs.google.com/spreadsheets/d/1dhQkqFEo8TSfkqjed2B0ig6ejrd-hEKJvrU2Y0dWmr8/edit?gid=483175244#gid=483175244"},
   {name:"Сервисное обслуживание", project:"emm",       description:"Таблица по проекту ТО+ЕММ",        url:"https://docs.google.com/spreadsheets/d/1QdjCuRj_qUbF5IOWDdqgbS5yGnb4byI8KEtMTPsabYA/edit?usp=sharing"},
   {name:"ЕММ",                    project:"emm",       description:"Таблица по проекту ЕММ (список)",  url:"https://docs.google.com/spreadsheets/d/1SLLDFAm20Fmg0O4HGklP6kvK4FWdfd3_lFK95dZkxFA/edit?usp=sharing"},
   {name:"Лента",                  project:"lenta",     description:"Таблица по проекту Лента",         url:"https://docs.google.com/spreadsheets/d/15gWmk-dnApiRLLa9PtlSQiAVXcW8DAty5J55tNeURLI/edit?usp=sharing"},
@@ -539,6 +595,102 @@ const TABLES = [
   {name:"Метро",                  project:"metro",     description:"Таблица по проекту Метро",         url:"https://docs.google.com/spreadsheets/d/1iTWzQutDr0e_dgOKW0oG1s4OeaRpyAOxlJjbIJVxJdk/edit?usp=sharing"},
   {name:"Таблица Подрядчики",     project:"dp_pch",    description:"Таблица по подрядчикам",           url:"https://docs.google.com/spreadsheets/d/18PZsnwJIdLvULAQOaSBdOQ4mSenNvOr5f2YrQ22aJy0/edit?usp=sharing"}
 ];
+
+/* ---------- ВИДЕОИНСТРУКЦИИ ----------
+   Ссылку берём с Яндекс.Диска: правый клик по файлу →
+   «Поделиться» → «Скопировать ссылку».
+   Клик по карточке видео откроет эту ссылку в новой вкладке.
+*/
+const VIDEOS = [
+  {
+    name: "Синхронизация ориентации матриц ШБ.mp4",
+    project: "shelf",
+    description: "Видео по синхронизации ориентации матриц на Шелфбаннерах",
+    url: "https://disk.360.yandex.ru/i/R0xjrLVxu9CHuw",
+    duration: "01:25"
+  },
+  {
+    name: "Крепление петли к ШБ и уголку.mp4",
+    project: "shelf",
+    description: "Крепеж петли к Шелфбаннеру и уголку",
+    url: "https://disk.360.yandex.ru/i/zkB9BkW6MgqcQQ",
+    duration: "00:08"
+  },
+  {
+    name: "Крепление петли к ШБ.mp4",
+    project: "shelf",
+    description: "Крепеж петли к Шелфбаннеру",
+    url: "https://disk.360.yandex.ru/i/Jc2aagtfhLfsuA",
+    duration: "00:10"
+  },
+  {
+    name: "Монтаж петель на ШБ.mp4",
+    project: "shelf",
+    description: "Монтаж петель на Шелфбаннер",
+    url: "https://disk.360.yandex.ru/i/pBnpqni01xoPnw",
+    duration: "00:25"
+  },
+  {
+    name: "Настройка петель 1.mp4",
+    project: "shelf",
+    description: "Настройка петель 1",
+    url: "https://disk.360.yandex.ru/i/rijUPrYODINDJQ",
+    duration: "01:33"
+  },
+  {
+    name: "Настройка петли 2.mp4",
+    project: "shelf",
+    description: "Настройка петель 2",
+    url: "https://disk.360.yandex.ru/i/cjeaEOsnAH18kg",
+    duration: "01:49"
+  },
+  {
+    name: "Установка ЕММ на ШБ.mp4",
+    project: "shelf",
+    description: "Установка ЕММ на Шелфбаннер",
+    url: "https://disk.360.yandex.ru/i/qPI12dVo4DowwQ",
+    duration: "02:50"
+  },
+  {
+    name: "Подключение управляющего ПК к экрану.mp4",
+    project: "shelf",
+    description: "Подключение управляющего ПК к Шелфбаннеру",
+    url: "https://disk.360.yandex.ru/i/VtrpCPF7i5xw6A",
+    duration: "03:05"
+  },
+  {
+    name: "Пример подключения кабелей.mp4",
+    project: "shelf",
+    description: "Пример подключения кабелей",
+    url: "https://disk.360.yandex.ru/i/iPLDe726ZwFGvQ",
+    duration: "00:21"
+  },
+  {
+    name: "Подключение кабелей.mp4",
+    project: "shelf",
+    description: "Подключение кабелей",
+    url: "https://disk.360.yandex.ru/i/jeNTf9YRxqp5sA",
+    duration: "00:08"
+  },
+  {
+    name: "Установка ПО и активация ЕММ.mp4",
+    project: "fasad",
+    description: "Установка ПО и активация ЕММ на ФЭ",
+    url: "https://disk.360.yandex.ru/i/pEFOUsgD_nR4Pg",
+    duration: "02:15"
+  },
+  {
+    name: "Настройка таймера.MOV",
+    project: "fasad",
+    description: "Настройка таймера на ФЭ",
+    url: "https://disk.360.yandex.ru/i/enXW4i3RTYQ4AQ",
+    duration: "01:19"
+  },
+];
+
+/* ============================================================
+   НИЖЕ НИЧЕГО МЕНЯТЬ НЕ НУЖНО
+   ============================================================ */
 
 function esc(s){
   return String(s == null ? "" : s).replace(/[&<>"']/g, m => ({
@@ -604,16 +756,38 @@ function buildTableCard(t){
   return a;
 }
 
+function buildVideoCard(v){
+  const a = document.createElement("a");
+  a.className = "video-card";
+  a.href = v.url;
+  a.target = "_blank";
+  a.rel = "noopener";
+  const p = projectById(v.project);
+  a.innerHTML =
+    '<div class="video-thumb">' +
+      '<div class="video-play"></div>' +
+      (v.duration ? '<div class="video-duration">' + esc(v.duration) + '</div>' : '') +
+    '</div>' +
+    '<div class="video-meta">' +
+      '<b>' + esc(v.name) + '</b>' +
+      (v.description ? '<div class="v-desc">' + esc(v.description) + '</div>' : '') +
+      (p ? '<div class="v-project">' + esc(p.icon + " " + p.title) + '</div>' : '') +
+    '</div>';
+  return a;
+}
+
 function buildProjectCard(p){
   const count = FILES.filter(f => f.project === p.id).length;
   const tcount = TABLES.filter(t => t.project === p.id).length;
-  const total = count + tcount;
+  const vcount = VIDEOS.filter(v => v.project === p.id).length;
+  const total = count + tcount + vcount;
   const card = document.createElement("div");
   card.className = "proj-card";
   card.setAttribute("data-project", p.id);
   const parts = [];
   if (count) parts.push(count + " " + plural(count, ["файл","файла","файлов"]));
   if (tcount) parts.push(tcount + " " + plural(tcount, ["таблица","таблицы","таблиц"]));
+  if (vcount) parts.push(vcount + " " + plural(vcount, ["видео","видео","видео"]));
   card.innerHTML =
     '<div class="p-ic">' + esc(p.icon) + '</div>' +
     '<h3>' + esc(p.title) + '</h3>' +
@@ -639,7 +813,12 @@ function renderSidebar(){
   const sideS = $("sideSections");
   sideS.innerHTML = "";
   SECTIONS.forEach(s => {
-    const count = FILES.filter(f => f.section === s.id).length;
+    let count;
+    if (s.id === "video"){
+      count = VIDEOS.length;
+    } else {
+      count = FILES.filter(f => f.section === s.id).length;
+    }
     const row = document.createElement("div");
     row.className = "side-link";
     row.setAttribute("data-nav", "section");
@@ -649,10 +828,12 @@ function renderSidebar(){
   });
 
   $("sideTableCount").textContent = TABLES.length;
+  $("sideVideoCount").textContent = VIDEOS.length;
 }
 
 /* ---------- dashboard ---------- */
 function animateNumber(el, target){
+  if (!el) return;
   const dur = 900;
   const t0 = performance.now();
   function tick(t){
@@ -666,8 +847,8 @@ function animateNumber(el, target){
 
 function renderDashboard(){
   animateNumber($("mFiles"), FILES.length);
-  animateNumber($("mProjects"), PROJECTS.length);
   animateNumber($("mTables"), TABLES.length);
+  animateNumber($("mVideos"), VIDEOS.length);
 
   const grid = $("projectsGrid");
   grid.innerHTML = "";
@@ -706,12 +887,22 @@ function renderDashboard(){
   const tg = $("tablesGrid");
   tg.innerHTML = "";
   TABLES.forEach(t => tg.appendChild(buildTableCard(t)));
+
+  const vg = $("videosGrid");
+  vg.innerHTML = "";
+  VIDEOS.forEach(v => vg.appendChild(buildVideoCard(v)));
 }
 
 function renderTablesPage(){
   const g = $("allTablesGrid");
   g.innerHTML = "";
   TABLES.forEach(t => g.appendChild(buildTableCard(t)));
+}
+
+function renderVideosPage(){
+  const g = $("allVideosGrid");
+  g.innerHTML = "";
+  VIDEOS.forEach(v => g.appendChild(buildVideoCard(v)));
 }
 
 /* ---------- project page ---------- */
@@ -724,7 +915,12 @@ function renderProjectPage(projectId){
   const sections = $("projectSections");
   sections.innerHTML = "";
   SECTIONS.forEach(s => {
-    const count = FILES.filter(f => f.project === projectId && f.section === s.id).length;
+    let count;
+    if (s.id === "video"){
+      count = VIDEOS.filter(v => v.project === projectId).length;
+    } else {
+      count = FILES.filter(f => f.project === projectId && f.section === s.id).length;
+    }
     if (!count) return;
     const tile = document.createElement("div");
     tile.className = "section-tile";
@@ -733,14 +929,13 @@ function renderProjectPage(projectId){
     tile.innerHTML =
       '<div class="s-ic">' + esc(s.icon) + '</div>' +
       '<h4>' + esc(s.title) + '</h4>' +
-      '<div class="s-count">' + count + ' ' + plural(count, ["файл","файла","файлов"]) + '</div>';
+      '<div class="s-count">' + count + ' ' + plural(count, ["материал","материала","материалов"]) + '</div>';
     sections.appendChild(tile);
   });
 
   $("projectFilesBlock").style.display = "none";
   $("sectionFiles").innerHTML = "";
 
-  /* Таблицы этого проекта */
   const projectTables = TABLES.filter(t => t.project === projectId);
   const ptBlock = $("projectTablesBlock");
   const pt = $("projectTables");
@@ -752,11 +947,43 @@ function renderProjectPage(projectId){
   } else {
     ptBlock.style.display = "none";
   }
+
+  const projectVideos = VIDEOS.filter(v => v.project === projectId);
+  const pvBlock = $("projectVideosBlock");
+  const pv = $("projectVideos");
+  pv.innerHTML = "";
+  if (projectVideos.length){
+    projectVideos.forEach(v => pv.appendChild(buildVideoCard(v)));
+    $("projectVideosCount").textContent = projectVideos.length + " " + plural(projectVideos.length, ["видео","видео","видео"]);
+    pvBlock.style.display = "";
+  } else {
+    pvBlock.style.display = "none";
+  }
 }
 
 function renderProjectSection(projectId, sectionId){
   const s = sectionById(sectionId);
   if (!s) return;
+
+  if (sectionId === "video"){
+    const list = VIDEOS.filter(v => v.project === projectId);
+    $("sectionTitle").textContent = s.icon + " " + s.title;
+    $("sectionCount").textContent = list.length + " " + plural(list.length, ["видео","видео","видео"]);
+    const box = $("sectionFiles");
+    box.innerHTML = "";
+    if (list.length){
+      const wrap = document.createElement("div");
+      wrap.className = "videos";
+      list.forEach(v => wrap.appendChild(buildVideoCard(v)));
+      box.appendChild(wrap);
+    } else {
+      box.innerHTML = '<div style="padding:24px;text-align:center;color:#6b7890;font-size:12px">Видео по этому проекту пока нет</div>';
+    }
+    $("projectFilesBlock").style.display = "";
+    $("projectFilesBlock").scrollIntoView({behavior:"smooth", block:"start"});
+    return;
+  }
+
   const list = FILES.filter(f => f.project === projectId && f.section === sectionId);
   $("sectionTitle").textContent = s.icon + " " + s.title;
   $("sectionCount").textContent = list.length + " " + plural(list.length, ["файл","файла","файлов"]);
@@ -770,15 +997,24 @@ function renderProjectSection(projectId, sectionId){
 function renderSectionPage(sectionId){
   const s = sectionById(sectionId);
   if (!s) return;
-  const list = FILES.filter(f => f.section === sectionId);
   $("sectionPageTitle").textContent = s.icon + " " + s.title;
   $("sectionPageDesc").textContent = s.desc || "";
+
   const box = $("sectionPageFiles");
+  const vbox = $("sectionPageVideos");
   box.innerHTML = "";
+  vbox.innerHTML = "";
+
+  if (sectionId === "video"){
+    VIDEOS.forEach(v => vbox.appendChild(buildVideoCard(v)));
+    return;
+  }
+
+  const list = FILES.filter(f => f.section === sectionId);
   list.forEach(f => box.appendChild(buildFileItem(f, true)));
 }
 
-/* ---------- Навигация ---------- */
+/* ---------- навигация ---------- */
 function showPage(pageId){
   document.querySelectorAll(".page").forEach(p => p.classList.add("hidden"));
   const page = document.getElementById("page" + pageId.charAt(0).toUpperCase() + pageId.slice(1));
@@ -840,8 +1076,15 @@ function navTables(){
   closeSidebarMobile();
   window.scrollTo({top:0, behavior:"smooth"});
 }
+function navVideos(){
+  showPage("videos");
+  setActiveSideLink('.side-link[data-nav="videos"]');
+  setCrumbs([{text:"Дашборд", link:navDashboard}, {text:"Видеоинструкции"}]);
+  closeSidebarMobile();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
 
-/* ---------- Скачивание ---------- */
+/* ---------- скачивание файлов ---------- */
 function downloadFile(url, name){
   if (!url){ toast("Ссылка на файл не указана"); return; }
   toast("Скачивание началось\n" + name);
@@ -851,7 +1094,7 @@ function downloadFile(url, name){
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
 }
 
-/* ---------- Делегирование ---------- */
+/* ---------- делегирование ---------- */
 document.addEventListener("click", e => {
   const nav = e.target.closest("[data-nav]");
   if (nav){
@@ -860,6 +1103,7 @@ document.addEventListener("click", e => {
     if (t === "project")   return navProject(nav.getAttribute("data-project"));
     if (t === "section")   return navSection(nav.getAttribute("data-section"));
     if (t === "tables")    return navTables();
+    if (t === "videos")    return navVideos();
     if (t === "cmd")       return openCmd();
   }
   const projCard = e.target.closest(".proj-card");
@@ -892,7 +1136,8 @@ function renderCmd(q){
 
   const navItems = [
     {ic:"◈", name:"Дашборд",         meta:"Обзор базы",                type:"Раздел", action:() => { closeCmd(); navDashboard(); }},
-    {ic:"▤", name:"Онлайн-таблицы",  meta:TABLES.length + " таблиц",   type:"Раздел", action:() => { closeCmd(); navTables(); }}
+    {ic:"▤", name:"Онлайн-таблицы",  meta:TABLES.length + " таблиц",   type:"Раздел", action:() => { closeCmd(); navTables(); }},
+    {ic:"🎬", name:"Видеоинструкции", meta:VIDEOS.length + " видео",    type:"Раздел", action:() => { closeCmd(); navVideos(); }}
   ];
   PROJECTS.forEach(p => navItems.push({ic:p.icon, name:p.title, meta:"Проект", type:"Проект", action:() => { closeCmd(); navProject(p.id); }}));
   SECTIONS.forEach(s => navItems.push({ic:s.icon, name:s.title, meta:"Раздел базы", type:"Раздел", action:() => { closeCmd(); navSection(s.id); }}));
@@ -921,6 +1166,21 @@ function renderCmd(q){
     action:() => { closeCmd(); window.open(t.url, "_blank", "noopener"); }
   }));
   if (tablesFiltered.length) groups.push({title:"Таблицы", items:tablesFiltered});
+
+  const videosFiltered = VIDEOS.filter(v => {
+    if (!q) return true;
+    const p = projectById(v.project);
+    return (v.name + " " + (v.description||"") + " " + (p?p.title:"")).toLowerCase().includes(q);
+  }).slice(0, 8).map(v => {
+    const p = projectById(v.project);
+    return {
+      ic:"🎬", name:v.name,
+      meta:(p?p.title:"") + (v.duration ? " · " + v.duration : ""),
+      type:"Видео",
+      action:() => { closeCmd(); window.open(v.url, "_blank", "noopener"); }
+    };
+  });
+  if (videosFiltered.length) groups.push({title:"Видеоинструкции", items:videosFiltered});
 
   if (!groups.length){
     cmdResults.innerHTML = '<div class="cmd-empty">Ничего не найдено по запросу «' + esc(q) + '»</div>';
@@ -977,11 +1237,12 @@ function toast(s){
   toastTimer = setTimeout(() => { t.style.display = "none"; }, 2600);
 }
 
-/* ---------- Старт ---------- */
+/* ---------- старт ---------- */
 try {
   renderSidebar();
   renderDashboard();
   renderTablesPage();
+  renderVideosPage();
   navDashboard();
 } catch (err){
   console.error(err);
@@ -989,12 +1250,12 @@ try {
   if (b){
     b.className = "errbox";
     b.textContent = "Ошибка в данных сайта:\n" + (err && err.message ? err.message : String(err)) +
-      "\n\nПроверьте массивы FILES, TABLES, PROJECTS, SECTIONS.";
+      "\n\nПроверьте массивы FILES, TABLES, VIDEOS, PROJECTS, SECTIONS.";
   }
 }
 
 /* ============================================================
-                          ЗАЩИТА ПАРОЛЕМ 
+   ЗАЩИТА ПАРОЛЕМ · ADTS · 7 дней · только латиница
    ============================================================ */
 (function(){
   "use strict";
